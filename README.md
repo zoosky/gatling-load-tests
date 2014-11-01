@@ -39,6 +39,8 @@ sh install-graphite.sh
 ```
 ### Configure Gatling and Graphite
 ```config
+# gatling.conf
+
 data {
   writers = "console, file, graphite"
   reader = file
