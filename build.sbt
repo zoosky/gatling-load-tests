@@ -1,6 +1,6 @@
 name := "BBC Gatling Load Tests"
 
-version := "0.0.1"
+version := "1.0"
 
 val test = project.in(file("."))
   .enablePlugins(GatlingPlugin)
@@ -10,5 +10,3 @@ val test = project.in(file("."))
 scalacOptions ++= Seq("-feature", "-language:postfixOps")
 
 javaOptions in Test ++= Seq("-Djsse.enableSNIExtension=false")
-
-
