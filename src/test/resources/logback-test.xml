@@ -22,7 +22,7 @@
     <logger name="io.gatling.http" level="DEBUG" /> 
 
     <root level="DEBUG">
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
     </root>
 
 </configuration>
