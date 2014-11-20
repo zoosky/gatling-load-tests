@@ -23,7 +23,10 @@ class WeatherWarningApi extends Simulation {
     ) 
 
     setUp(scn.inject(
-         atOnceUsers(4)
+        rampUsersPerSec(10) to(300) during(10 minutes),
+        constantUsersPerSec(300) during(10 minutes),
+        rampUsersPerSec(300) to(750) during(10 minutes),
+        constantUsersPerSec(750) during(10 minutes)
     ).protocols(httpProtocol))
 
 }
