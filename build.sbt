@@ -1,3 +1,5 @@
+import io.gatling.sbt.GatlingPlugin.Gatling
+
 name := "BBC Gatling Load Tests"
 
 version := "0.0.1"
