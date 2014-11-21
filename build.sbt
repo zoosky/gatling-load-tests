@@ -11,4 +11,4 @@ val test = project.in(file("."))
 
 scalacOptions ++= Seq("-feature", "-language:postfixOps")
 
-javaOptions in Gatling ++= Seq("-Djsse.enableSNIExtension=false")
+//javaOptions in Gatling ++= Seq("-Djsse.enableSNIExtension=false")
