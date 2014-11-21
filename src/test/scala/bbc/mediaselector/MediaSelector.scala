@@ -9,6 +9,7 @@ import io.gatling.jdbc.Predef._
 class MediaSelector extends Simulation {
 
     val httpProtocol = http
+        .header("X-IP-Address", "no-committing-publicly")
 
     val open = csv("media-selector/open.csv").circular
     val secure = csv("media-selector/secure.csv").circular
