@@ -38,8 +38,6 @@ set shortmess+=I
 set wildignore+=*/target/*
 EOF
 
-echo "alias vi='vim'" > ~/.bashrc
-
 echo "install netcat"
 sudo yum install -y nc.x86_64
 
@@ -48,7 +46,12 @@ git config --global alias.st status
 git config --global color.ui true
 
 echo "Some Bash"
-echo alias ..=\"cd ..\" >> ~/.bashrc
+cat << EOF > ~/.bashrc 
+alias ..="cd .." 
+alias cl='clear'
+alias vi='vim' 
+export PS1="\u@\h \w "
+EOF
 
 exit 0
 # Might be an idea to now reboot
