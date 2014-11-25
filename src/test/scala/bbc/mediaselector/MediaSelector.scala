@@ -8,19 +8,23 @@ import io.gatling.jdbc.Predef._
 
 class MediaSelector extends Simulation {
 
-  val httpProtocol = http
-    .baseURL("http://open.stage.cwwtf.bbc.co.uk")
+    val httpProtocol = http
+        .header("X-IP-Address", "")
 
-    val payload = csv("open-payload.csv").circular
+    val open = csv("media-selector/open.csv").circular
+    val secure = csv("media-selector/secure.csv").circular
 
     val scn = scenario("media-selector")
-      .feed(payload)
-      .exec(http("media-selector")
-      .get("${selectURL}")
-      .check(status.is(200))
-    ) 
+        .feed(open)
+        .feed(secure)
+        .exec(http("open")
+        .get("http://open.stage.cwwtf.bbc.co.uk${openUrl}")
+        .check(status.is(200)))
+        .exec(http("secure")
+        .get("https://ipsecure.stage.bbc.co.uk${secureUrl}")
+        .check(status.is(200)))
 
-      setUp(scn.inject(
+    setUp(scn.inject(
         rampUsersPerSec(10) to(750) during(20 minutes) 
-      ).protocols(httpProtocol))
+    ).protocols(httpProtocol))
 }
