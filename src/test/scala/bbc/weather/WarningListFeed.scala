@@ -18,10 +18,10 @@ class WeatherListFeed extends Simulation {
     ) 
 
     setUp(scn.inject(
-        rampUsersPerSec(10) to(300) during(10 minutes),
-        constantUsersPerSec(300) during(10 minutes),
-        rampUsersPerSec(300) to(750) during(10 minutes),
-        constantUsersPerSec(750) during(10 minutes)
+        rampUsersPerSec(10) to(300) during(5 minutes),
+        constantUsersPerSec(300) during(5 minutes),
+        rampUsersPerSec(300) to(750) during(5 minutes),
+        constantUsersPerSec(750) during(5 minutes)
     ).protocols(httpProtocol))
 
 }
