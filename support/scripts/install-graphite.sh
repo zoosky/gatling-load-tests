@@ -1,24 +1,15 @@
 #!/bin/bash
 
-cd
-# 0.9.x (stable) branch
-git clone https://github.com/graphite-project/graphite-web.git
-cd graphite-web
-git checkout 0.9.x
-cd ..
-git clone https://github.com/graphite-project/carbon.git
-cd carbon
-git checkout 0.9.x
-cd ..
-git clone https://github.com/graphite-project/whisper.git
-cd whisper
-git checkout 0.9.x
-sudo python setup.py install
-cd ../carbon/
-sudo python setup.py install
-# configure carbon
-cd /opt/graphite/conf
-sudo cp carbon.conf.example carbon.conf
-sudo cp storage-schemas.conf.example storage-schemas.conf
+# epel repo
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo rpm -Uvh epel-release-6*.rpm
+
+sudo yum install -y gcc
+sudo yum install -y python-devel
+sudo yum -y install python-pip
+
+sudo pip install whisper
+sudo pip install carbon
+sudo pip install graphite-web
 
 exit 0
