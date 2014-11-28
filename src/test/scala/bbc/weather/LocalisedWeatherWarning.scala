@@ -9,7 +9,7 @@ import io.gatling.jdbc.Predef._
 class LocalisedWeatherWarning extends Simulation {
 
     val httpProtocol = http
-        .baseURL("https://weather-warnings-publish.test.cloud.bbc.co.uk")
+        .baseURL("https://weather-warnings-publish.test.api.bbci.co.uk")
 
     val gssIdFeeder = csv("weather/weather-stage-gss-ids.csv").circular
 
