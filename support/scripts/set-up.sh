@@ -28,6 +28,7 @@ echo "Vim plugins"
 cd ~/.vim/bundle
 git clone https://github.com/derekwyatt/vim-scala
 git clone https://github.com/kien/ctrlp.vim
+git clone https://github.com/tpope/vim-commentary
 
 echo "Configure Vim" 
 cat << EOF > ~/.vimrc
@@ -52,6 +53,9 @@ alias cl='clear'
 alias vi='vim' 
 export PS1="\u@\h \w "
 EOF
+
+echo "GNU Screen"
+sudo yum install -y screen
 
 exit 0
 # Might be an idea to now reboot
