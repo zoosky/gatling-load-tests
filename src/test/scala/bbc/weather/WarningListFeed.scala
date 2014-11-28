@@ -9,7 +9,7 @@ import io.gatling.jdbc.Predef._
 class WeatherListFeed extends Simulation {
 
     val httpProtocol = http
-        .baseURL("http://weather-warnings-publish.test.cloud.bbc.co.uk")
+        .baseURL("http://weather-warnings-publish.test.api.bbci.co.uk")
 
     val scn = scenario("Weather List Feed")
         .exec(http("Weather List Feed")
