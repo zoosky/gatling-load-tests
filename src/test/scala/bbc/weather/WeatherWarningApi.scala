@@ -11,7 +11,7 @@ class WeatherWarningApi extends Simulation {
     // .baseURLs uses a Randam generator which is uniformly distributed. 
     // 50% of hits will be http and 50% https
     val httpProtocol = http
-        .baseURLs("https://weather-warnings-publish.test.cloud.bbc.co.uk", "http://weather-warnings-publish.test.cloud.bbc.co.uk")
+        .baseURLs("https://weather-warnings-publish.test.api.bbci.co.uk", "http://weather-warnings-publish.test.api.bbci.co.uk")
 
     val gssIdFeeder = csv("weather/weather-stage-gss-ids.csv").circular
 
