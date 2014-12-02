@@ -16,7 +16,7 @@ class LdpContent extends Simulation {
         .feed(ldpContent)
         .exec(http("LDP Content")
         .get("${content}")
-        .check(status.is(200))
+        .check(status.in(Seq(200, 202)))
     ) 
 
     setUp(scn.inject(
