@@ -8,7 +8,7 @@ import io.gatling.http.Predef._
 class Resolver extends Simulation {
 
     val httpProtocol = http
-        .baseURL("http://newsapps-trevor-producer.int.cloud.bbc.co.uk")
+        .baseURL("http://newsapps-trevor-resolver.int.cloud.bbc.co.uk")
 
     val resolver = csv("trevor/resolver.csv").circular
 
