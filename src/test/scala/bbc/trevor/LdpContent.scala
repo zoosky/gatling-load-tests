@@ -5,16 +5,17 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
-class RenderedCpsContent extends Simulation {
-
+class LdpContent extends Simulation {
+   
     val httpProtocol = http
         .baseURL("http://newsapps-trevor-producer.int.cloud.bbc.co.uk")
 
-    val renderedCpsContent = csv("trevor/rendered-cps-content.csv").circular
-
-    val scn = scenario("Rendered CPS content")
-        .feed(renderedCpsContent)
-        .exec(http("Rendered CPS content")
+    val ldpContent = csv("trevor/ldp-content.csv").circular
+    
+    val r = scala.util.Random
+    val scn = scenario("LDP Content")
+        .feed(ldpContent)
+        .exec(http("LDP Content")
         .get("${content}")
         .check(status.is(200))
     ) 
