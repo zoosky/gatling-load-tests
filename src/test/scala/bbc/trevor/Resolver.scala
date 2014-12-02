@@ -9,6 +9,7 @@ class Resolver extends Simulation {
 
     val httpProtocol = http
         .baseURL("http://newsapps-trevor-producer.int.cloud.bbc.co.uk")
+        .disableFollowRedirect
 
     val resolver = csv("trevor/resolver.csv").circular
 
@@ -16,7 +17,6 @@ class Resolver extends Simulation {
         .feed(resolver)
         .exec(http("Resolver")
         .get("${content}")
-        .check(status.is(301))
     ) 
 
     setUp(scn.inject(
