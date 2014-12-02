@@ -16,7 +16,7 @@ class Resolver extends Simulation {
         .feed(resolver)
         .exec(http("Resolver")
         .get("${content}")
-        .check(status.is(200))
+        .check(status.is(301))
     ) 
 
     setUp(scn.inject(

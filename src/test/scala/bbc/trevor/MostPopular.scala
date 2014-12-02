@@ -16,7 +16,7 @@ class MostPopular extends Simulation {
         .check(status.is(200)))
         .exec(http("Trending")
         .get("/content/trending/events")
-        .check(status.is(200))
+        .check(status.in(Seq(200, 202)))
     ) 
 
     setUp(scn.inject(

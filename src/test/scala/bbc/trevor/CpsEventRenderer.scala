@@ -16,12 +16,12 @@ class CpsEventRenderer extends Simulation {
         .feed(renderer)
         .exec(http("CPS Event Renderer")
         .get("${content}")
-        .check(status.is(200))
+        .check(status.in(Seq(200, 202)))
     ) 
 
     setUp(scn.inject(
-        rampUsersPerSec(10) to(250) during(2 minutes),
-        constantUsersPerSec(250) during(18 minutes)
+        rampUsersPerSec(1) to(10) during(2 minutes),
+        constantUsersPerSec(10) during(18 minutes)
     ).protocols(httpProtocol))
 
 }
