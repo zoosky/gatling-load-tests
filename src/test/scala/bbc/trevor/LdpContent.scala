@@ -12,7 +12,6 @@ class LdpContent extends Simulation {
 
     val ldpContent = csv("trevor/ldp-content.csv").circular
     
-    val r = scala.util.Random
     val scn = scenario("LDP Content")
         .feed(ldpContent)
         .exec(http("LDP Content")
