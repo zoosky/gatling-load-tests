@@ -4,7 +4,8 @@ object MetricPrinter {
     for { 
       ln <- io.Source.stdin.getLines 
       if ln.contains("allRequests.all.count")
-        count = ("""(\d+)""".r findFirstIn ln)
-    } println("RPS: " + count.get)
+        countList = ("""(\d+)""".r findAllIn ln).toList
+    } println("Time: " + countList(1) + " RPS: " + countList(0))
+    
   }
 }
