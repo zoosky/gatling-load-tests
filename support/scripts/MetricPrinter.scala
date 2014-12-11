@@ -9,21 +9,23 @@ object MetricPrinter {
     simpleDateFormat.format(now)
   }
 
-  def rpsAndDate(data: String) = {
-    val countValues =
-      if (data.contains("count"))
-        ("""(\d+)""".r findAllIn data).toList
-      else 
-        List()
+  def printMetrics(data: String): Unit = {
+    val rpsAndDate = listRpsAndDate(data)
+    if (!rpsAndDate.isEmpty)    
+      println("Date Time: " + dateFormat(rpsAndDate(1).toLong) + ", RPS: " + rpsAndDate(0))
+  }
 
-    if (!countValues.isEmpty)
-      println("Date Time: " + dateFormat(countValues(1).toLong) + ", RPS: " + countValues(0))
+  def listRpsAndDate(data: String): List[String] = {
+    if (data.contains("count"))
+      ("""(\d+)""".r findAllIn data).toList
+    else 
+      List()
   }
 
   def main(args: Array[String]) {
     for { 
       ln <- io.Source.stdin.getLines 
       if ln.contains("allRequests.all")
-    } rpsAndDate(ln)
+    } printMetrics(ln)
   }
 }
