@@ -1,5 +1,4 @@
-package bbc.news
-
+package bbc.news 
 import scala.concurrent.duration._
 
 import io.gatling.core.Predef._
@@ -9,7 +8,7 @@ class MarketData extends Simulation {
 
     val httpProtocol = http
         .baseURL("http://pal.stage.bbc.co.uk/news")
-        .inferHtmlResources(BlackList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff""", """.*\.(t|o)tf""", """.*\.png"""), WhiteList())
+        .inferHtmlResources(BlackList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*171""", """.*\.(t|o)tf""", """.*\.png"""), WhiteList())
         .acceptHeader("""text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8""")
         .acceptEncodingHeader("""gzip, deflate""")
         .acceptLanguageHeader("""en-gb,en;q=0.5""")
@@ -34,7 +33,7 @@ class MarketData extends Simulation {
         .check(status.is(200)))
 
     setUp(scn.inject(
-        rampUsersPerSec(10) to(100) during(2 minutes),
-        constantUsersPerSec(100) during(18 minutes)
+        rampUsersPerSec(1) to(25) during(2 minutes),
+        constantUsersPerSec(25) during(18 minutes)
     ).protocols(httpProtocol)) 
 }
