@@ -13,10 +13,21 @@ object MetricPrinter {
     val rpsAndDate = listRpsAndDate(data)
     if (!rpsAndDate.isEmpty)    
       println("Date Time: " + dateFormat(rpsAndDate(1).toLong) + ", RPS: " + rpsAndDate(0))
+
+    val percentileAndDate = listPercentileAndDate(data)
+    if (!percentileAndDate.isEmpty)    
+      println("Date Time: " + dateFormat(percentileAndDate(3).toLong) + ", 95%: " + percentileAndDate(2))
   }
 
   def listRpsAndDate(data: String): List[String] = {
     if (data.contains("count"))
+      ("""(\d+)""".r findAllIn data).toList
+    else 
+      List()
+  }
+
+  def listPercentileAndDate(data: String): List[String] = {
+    if (data.contains("percentiles95"))
       ("""(\d+)""".r findAllIn data).toList
     else 
       List()
