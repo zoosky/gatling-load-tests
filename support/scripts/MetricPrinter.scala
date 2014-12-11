@@ -1,7 +1,6 @@
 import java.util.Date
 import java.text.SimpleDateFormat
 
-  
 object MetricPrinter {
   
   def dateFormat(unixTime: Long) = {
@@ -10,11 +9,21 @@ object MetricPrinter {
     simpleDateFormat.format(now)
   }
 
+  def rpsAndDate(data: String) = {
+    val countValues =
+      if (data.contains("count"))
+        ("""(\d+)""".r findAllIn data).toList
+      else 
+        List()
+
+    if (!countValues.isEmpty)
+      println("Date Time: " + dateFormat(countValues(1).toLong) + ", RPS: " + countValues(0))
+  }
+
   def main(args: Array[String]) {
     for { 
       ln <- io.Source.stdin.getLines 
-      if ln.contains("allRequests.all.count")
-        countList = ("""(\d+)""".r findAllIn ln).toList
-    } println("Time: " + dateFormat(countList(1).toLong) + ", RPS: " + countList(0))
+      if ln.contains("allRequests.all")
+    } rpsAndDate(ln)
   }
 }
