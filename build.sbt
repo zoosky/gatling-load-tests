@@ -1,10 +1,10 @@
-name := "BBC Gatling Load Tests"
+enablePlugins(GatlingPlugin)
 
-version := "1.0"
+scalaVersion := "2.11.2"
 
-val test = project.in(file("."))
-  .enablePlugins(GatlingPlugin)
-    .settings(libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.0.3" % "test")
-    .settings(libraryDependencies += "io.gatling" % "test-framework" % "1.0" % "test")
+scalacOptions := Seq(
+    "-encoding", "UTF-8", "-target:jvm-1.7", "-deprecation",
+    "-feature", "-unchecked", "-language:implicitConversions", "-language:postfixOps")
 
-scalacOptions ++= Seq("-feature", "-language:postfixOps")
+libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.1.1" % "test,it"
+libraryDependencies += "io.gatling"            % "gatling-test-framework"    % "2.1.1" % "test,it"
