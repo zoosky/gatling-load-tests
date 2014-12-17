@@ -5,11 +5,11 @@
 echo "Goto HOME"
 cd
 
-echo "download SBT 0.13.6 RPM"
-wget "https://dl.bintray.com/sbt/rpm/sbt-0.13.6.rpm"
+echo "download SBT 0.13.7 RPM"
+wget "https://dl.bintray.com/sbt/rpm/sbt-0.13.7.rpm"
 
 echo "Installing SBT RPM"
-sudo yum install -y "sbt-0.13.6.rpm"
+sudo yum install -y "sbt-0.13.7.rpm"
 
 echo "Linux Tuning"
 printf '*       soft    nofile  65535 \n*       hard    nofile  65535' | sudo tee /etc/security/limits.conf
