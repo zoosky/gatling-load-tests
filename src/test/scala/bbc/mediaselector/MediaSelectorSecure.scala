@@ -10,9 +10,10 @@ class MediaSelectorSecure extends Simulation {
     val httpProtocol = http
         .header("X-IP-Address", "")
 
-    val open = csv("media-selector/secure.csv").circular
+    val secure = csv("media-selector/secure.csv").circular
 
     val scn = scenario("media-selector")
+        .feed(secure)
         .exec(http("secure")
         .get("https://ipsecure.stage.bbc.co.uk${secureUrl}")
         .check(status.is(200)))
