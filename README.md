@@ -10,13 +10,13 @@ traditional load-tools by utilising asynchronous concurrency and IO, and by usin
 language (Scala) for its scripting.
 
 ### [SBT](http://www.scala-sbt.org/)
-SBT is a build tool that has become the de-facto build tool for Scala projects.
+SBT is the de-facto build tool for Scala projects.
 
 ## Installation 
 ### SBT
 ```bash
-$ wget "https://dl.bintray.com/sbt/rpm/sbt-0.13.6.rpm"
-$ sudo yum install -y "sbt-0.13.6.rpm"
+$ wget "https://dl.bintray.com/sbt/rpm/sbt-0.13.7.rpm"
+$ sudo yum install -y "sbt-0.13.7.rpm"
 ```
 
 ### Test Resources
