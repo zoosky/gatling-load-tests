@@ -3,9 +3,10 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 echo "Vim plugins"
-git clone ~/.vim/bundle/https://github.com/derekwyatt/vim-scala
-git clone ~/.vim/bundle/https://github.com/kien/ctrlp.vim
-git clone ~/.vim/bundle/https://github.com/tpope/vim-commentary
+cd ~/.vim/bundle
+git clone https://github.com/derekwyatt/vim-scala
+git clone https://github.com/kien/ctrlp.vim
+git clone https://github.com/tpope/vim-commentary
 
 echo "Configure Vim"
 cat << EOF > ~/.vimrc
