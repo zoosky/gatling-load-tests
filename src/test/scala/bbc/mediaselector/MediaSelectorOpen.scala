@@ -8,7 +8,7 @@ import io.gatling.http.Predef._
 class MediaSelectorOpen extends Simulation {
 
     val httpProtocol = http
-        .header("X-IP-Address", "")
+        // .header("X-IP-Address", "")
 
     val open = csv("media-selector/open.csv").circular
 
@@ -19,6 +19,6 @@ class MediaSelectorOpen extends Simulation {
         .check(status.is(200)))
 
     setUp(scn.inject(
-        rampUsersPerSec(10) to(250) during(10 minutes) 
+        rampUsersPerSec(100) to(750) during(3 minutes) 
     ).protocols(httpProtocol))
 }
