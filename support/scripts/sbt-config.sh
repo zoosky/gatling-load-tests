@@ -9,4 +9,4 @@ sudo yum install -y "sbt-0.13.7.rpm"
 echo "Removing SBT RPM"
 rm "sbt-0.13.7.rpm"
 
-echo 0
+exit 0
