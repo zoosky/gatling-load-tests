@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "download SBT 0.13.7 RPM"
 wget "https://dl.bintray.com/sbt/rpm/sbt-0.13.7.rpm"
 
