@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Linux Tuning"
 printf '*       soft    nofile  65535 \n*       hard    nofile  65535' | sudo tee /etc/security/limits.conf
 # more ports for testing
