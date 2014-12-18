@@ -5,7 +5,7 @@ cd $(dirname $0)
 
 sh "linux-tuning.sh"
 sh "bash-config.sh"
-sh "sbt-config"
+sh "sbt-config.sh"
 sh "vim-install-config.sh"
 
 echo "install netcat"
