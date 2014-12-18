@@ -4,8 +4,8 @@
 cd $(dirname $0)
 
 sh "linux-tuning.sh"
-sh "vim-install-config.sh"
 sh "bash-config.sh"
+sh "vim-install-config.sh"
 
 echo "install netcat"
 sudo yum install -y nc.x86_64
