@@ -54,6 +54,6 @@ graphite {
     }
 ```
 
-Run test and configure the Grafana dashboard. 
+Configure the [Grafana dashboard](http://grafana.org/docs/features/intro/) and run test. 
 
 
