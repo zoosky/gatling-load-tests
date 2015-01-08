@@ -43,7 +43,7 @@ Dashboard running at http://192.168.59.103:49154
 ```
 In the gatling.conf add the IP address. 
 
-```json
+```config
 graphite {
       #light = false              # only send the all* stats
       host = "192.168.59.103"         # The host where the Carbon server is located
@@ -53,10 +53,6 @@ graphite {
       # bufferSize = 8192          # GraphiteDataWriter's internal data buffer size, in bytes
     }
 ```
-
-Run test and configure the Grafana dashboard. 
-
-
 
 ### Configure Gatling and Graphite
 ```config
@@ -72,8 +68,7 @@ data {
   }
 }
 ```
-### netcat
-Use netcat to listen on port 2003 which can be piped into the print_metrics.py to parse the Graphite results.
-``` 
-$ nc -l 2003 | python support/scripts/print_metrics.py
+
+Run test and configure the Grafana dashboard. 
+
 
