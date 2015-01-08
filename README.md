@@ -54,21 +54,6 @@ graphite {
     }
 ```
 
-### Configure Gatling and Graphite
-```config
-# gatling.conf
-
-data {
-  writers = "console, file, graphite"
-  reader = file
-
-  graphite {
-    host = "localhost"
-    port = 2003
-  }
-}
-```
-
 Run test and configure the Grafana dashboard. 
 
 
