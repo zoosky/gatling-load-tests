@@ -41,7 +41,7 @@ This should produce a host and port for the dashboard
 ```sh
 Dashboard running at http://192.168.59.103:49154
 ```
-In the gatling.conf add the IP address. 
+In the gatling.conf add the above docker IP address. 
 
 ```config
 graphite {
