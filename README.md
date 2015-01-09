@@ -44,6 +44,13 @@ Dashboard running at http://192.168.59.103:49154
 In the gatling.conf add the above docker IP address and uncomment relevant values.
 
 ```config
+ data {
+     writers = "console, file, graphite" # The lists of DataWriters to which Gatling write simulation data (currently supported : "console", "file", "graphite", "jdbc")
+     reader = file             # The DataReader used by the charting engine for reading simulation results
+    console {
+      #light = false           # When set to true, displays a light version without detailed request stats
+    }
+    
 graphite {
       #light = false              # only send the all* stats
       host = "192.168.59.103"         # The host where the Carbon server is located
