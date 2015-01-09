@@ -41,7 +41,7 @@ This should produce a host and port for the dashboard
 ```sh
 Dashboard running at http://192.168.59.103:49154
 ```
-In the gatling.conf add the above docker IP address and uncomment relevant key values.
+In the gatling.conf add the above docker IP address and uncomment relevant values.
 
 ```config
 graphite {
@@ -51,7 +51,7 @@ graphite {
       # protocol = "tcp"           # The protocol used to send data to Carbon (currently supported : "tcp", "udp")
       rootPathPrefix = "gatling" # The common prefix of all metrics sent to Graphite
       # bufferSize = 8192          # GraphiteDataWriter's internal data buffer size, in bytes
-    }
+ }
 ```
 
 Configure the [Grafana dashboard](http://grafana.org/docs/features/intro/) and run test. 
