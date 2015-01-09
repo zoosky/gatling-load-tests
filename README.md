@@ -41,24 +41,18 @@ This should produce a host and port for the dashboard
 ```sh
 Dashboard running at http://192.168.59.103:49154
 ```
-In the gatling.conf add the above docker IP address and uncomment relevant values.
+In the gatling.conf add the above docker IP address and enusure relevant values are uncommented.
 
 ```config
  data {
-     writers = "console, file, graphite" # The lists of DataWriters to which Gatling write simulation data (currently supported : "console", "file", "graphite", "jdbc")
-     reader = file             # The DataReader used by the charting engine for reading simulation results
-     console {
-     #light = false           # When set to true, displays a light version without detailed request stats
-    }
+     writers = "console, file, graphite"
+     reader = file
  }
     
 graphite {
-      #light = false              # only send the all* stats
-      host = "192.168.59.103"         # The host where the Carbon server is located
-      port = 2003                # The port to which the Carbon server listens to
-      # protocol = "tcp"           # The protocol used to send data to Carbon (currently supported : "tcp", "udp")
-      rootPathPrefix = "gatling" # The common prefix of all metrics sent to Graphite
-      # bufferSize = 8192          # GraphiteDataWriter's internal data buffer size, in bytes
+      host = "192.168.59.103"         
+      port = 2003                
+      rootPathPrefix = "gatling"
  }
 ```
 
