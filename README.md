@@ -47,9 +47,10 @@ In the gatling.conf add the above docker IP address and uncomment relevant value
  data {
      writers = "console, file, graphite" # The lists of DataWriters to which Gatling write simulation data (currently supported : "console", "file", "graphite", "jdbc")
      reader = file             # The DataReader used by the charting engine for reading simulation results
-    console {
-      #light = false           # When set to true, displays a light version without detailed request stats
+     console {
+     #light = false           # When set to true, displays a light version without detailed request stats
     }
+ }
     
 graphite {
       #light = false              # only send the all* stats
