@@ -33,7 +33,7 @@ $ sbt
 
 ## Real-time metrics
 
-With [docker[(https://www.docker.com/whatisdocker/) started, run this shell script
+With [docker](https://www.docker.com/whatisdocker/) started, run this shell script
 ```sh
 $ sh support/scripts/graphite-install.sh
 ```
