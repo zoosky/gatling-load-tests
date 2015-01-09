@@ -33,7 +33,7 @@ $ sbt
 
 ## Real-time metrics
 
-With [docker](https://www.docker.com/whatisdocker/) started, run this shell script
+With [docker](https://www.docker.com/whatisdocker/) installed on your system.
 ```sh
 $ sh support/scripts/graphite-install.sh
 ```
@@ -49,7 +49,7 @@ In the gatling.conf add the above docker IP address and enusure relevant values 
      reader = file
  }
     
-graphite {
+ graphite {
       host = "192.168.59.103"         
       port = 2003                
       rootPathPrefix = "gatling"
