@@ -28,7 +28,7 @@ class HomePageV5 extends Simulation {
     .feed(weatherFeeder)
     .exec(http("homepage")
     .get("/").check(status.is(200))
-    .resources(http("threeday weather")
+    .resources(http("three day weather")
     .get("/home/five/modules/weather/threeday/en/${geoname_id}")
     .check(status.is(200))))
 
