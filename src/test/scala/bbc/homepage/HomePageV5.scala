@@ -33,7 +33,7 @@ class HomePageV5 extends Simulation {
     .check(status.is(200))))
 
     setUp(scn.inject(
-      rampUsersPerSec(10) to(150) during(3 minutes),
-      constantUsersPerSec(150) during(17 minutes)
+      rampUsersPerSec(10) to(75) during(3 minutes),
+      constantUsersPerSec(75) during(17 minutes)
     ).protocols(httpProtocol))
 }
