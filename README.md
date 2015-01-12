@@ -33,7 +33,7 @@ $ sbt
 
 ## Real-time metrics
 
-With docker started, run
+With [docker](https://www.docker.com/whatisdocker/) installed on your system.
 ```sh
 $ sh support/scripts/graphite-install.sh
 ```
@@ -41,19 +41,21 @@ This should produce a host and port for the dashboard
 ```sh
 Dashboard running at http://192.168.59.103:49154
 ```
-In the gatling.conf add the above docker IP address and uncomment relevant key values.
+In the gatling.conf add the above docker IP address and enusure relevant values are uncommented.
 
 ```config
-graphite {
-      #light = false              # only send the all* stats
-      host = "192.168.59.103"         # The host where the Carbon server is located
-      port = 2003                # The port to which the Carbon server listens to
-      # protocol = "tcp"           # The protocol used to send data to Carbon (currently supported : "tcp", "udp")
-      rootPathPrefix = "gatling" # The common prefix of all metrics sent to Graphite
-      # bufferSize = 8192          # GraphiteDataWriter's internal data buffer size, in bytes
-    }
+ data {
+     writers = "console, file, graphite"
+     reader = file
+ }
+    
+ graphite {
+      host = "192.168.59.103"         
+      port = 2003                
+      rootPathPrefix = "gatling"
+ }
 ```
 
-Configure the [Grafana dashboard](http://grafana.org/docs/features/intro/) and run test. 
+Configure the [Grafana dashboard](http://grafana.org/docs/features/intro/) for your time series. 
 
 
