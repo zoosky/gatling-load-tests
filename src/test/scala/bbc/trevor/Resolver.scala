@@ -17,7 +17,8 @@ class Resolver extends Simulation {
         .feed(resolver)
         .exec(http("Resolver")
         .get("${content}")
-    ) 
+        .check(status.is(200))
+    )
 
     setUp(scn.inject(
         rampUsersPerSec(10) to(400) during(10 minutes)
