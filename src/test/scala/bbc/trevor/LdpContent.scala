@@ -20,7 +20,7 @@ class LdpContent extends Simulation {
     ) 
 
     setUp(scn.inject(
-        rampUsersPerSec(10) to(400) during(20 minutes)
+        rampUsersPerSec(10) to(400) during(10 minutes)
     ).protocols(httpProtocol))
 
 }
