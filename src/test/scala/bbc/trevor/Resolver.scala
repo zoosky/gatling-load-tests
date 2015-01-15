@@ -9,7 +9,6 @@ class Resolver extends Simulation {
 
     val httpProtocol = http
         .baseURL("http://newsapps-trevor-resolver.int.cloud.bbc.co.uk")
-        .disableFollowRedirect
 
     val resolver = csv("trevor/resolver.csv").circular
 
