@@ -15,7 +15,7 @@ class HomePageV5 extends Simulation {
   )
 
   val httpProtocol = http
-    .baseURL("https://homepage.cloud.bbc.co.uk")
+    .baseURL("http://www.stage.bbc.co.uk")
     .inferHtmlResources(BlackList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff""", """.*\.(t|o)tf""", """.*\.png"""), WhiteList())
     .acceptHeader("""text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8""")
     .acceptEncodingHeader("""gzip, deflate""")
@@ -33,7 +33,7 @@ class HomePageV5 extends Simulation {
     .check(status.is(200))))
 
     setUp(scn.inject(
-      rampUsersPerSec(10) to(150) during(3 minutes),
-      constantUsersPerSec(150) during(17 minutes)
+      rampUsersPerSec(10) to(300) during(3 minutes),
+      constantUsersPerSec(300) during(17 minutes)
     ).protocols(httpProtocol))
 }
