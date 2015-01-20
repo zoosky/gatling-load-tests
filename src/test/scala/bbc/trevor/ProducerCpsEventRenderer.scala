@@ -20,8 +20,7 @@ class ProducerCpsEventRenderer extends Simulation {
     ) 
 
     setUp(scn.inject(
-        rampUsersPerSec(1) to(10) during(2 minutes),
-        constantUsersPerSec(10) during(18 minutes)
+        rampUsersPerSec(10) to(400) during(10 minutes)
     ).protocols(httpProtocol))
 
 }
