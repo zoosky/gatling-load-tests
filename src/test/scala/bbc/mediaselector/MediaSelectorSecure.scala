@@ -19,6 +19,6 @@ class MediaSelectorSecure extends Simulation {
         .check(status.is(200)))
 
     setUp(scn.inject(
-        rampUsersPerSec(10) to(250) during(10 minutes) 
+        rampUsersPerSec(10) to(750) during(10 minutes) 
     ).protocols(httpProtocol))
 }
