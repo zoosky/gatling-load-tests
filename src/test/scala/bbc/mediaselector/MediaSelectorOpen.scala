@@ -19,6 +19,6 @@ class MediaSelectorOpen extends Simulation {
         .check(status.is(200)))
 
     setUp(scn.inject(
-        rampUsersPerSec(100) to(750) during(3 minutes) 
+        rampUsersPerSec(100) to(750) during(10 minutes) 
     ).protocols(httpProtocol))
 }
