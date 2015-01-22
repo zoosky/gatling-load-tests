@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
+// sbt -J-Xmx5G -J-Xms2G
 class MediaSelectorSecure extends Simulation {
     
     val httpProtocol = http
