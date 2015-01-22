@@ -6,10 +6,10 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
 class MediaSelectorSecure extends Simulation {
-
+    
     val httpProtocol = http
-        .header("X-IP-Address", "")
-
+        .header("X-IP-Address", "") // https://api.stage.bbc.co.uk/mediaselector/kipps?ip=194.159.80.39
+    
     val secure = csv("media-selector/secure.csv").circular
 
     val scn = scenario("media-selector")
