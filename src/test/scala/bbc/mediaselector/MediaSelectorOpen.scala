@@ -10,7 +10,7 @@ import io.gatling.http.Predef._
 class MediaSelectorOpen extends Simulation {
 
     val httpProtocol = http
-        // .header("X-IP-Address", "") // https://api.stage.bbc.co.uk/mediaselector/kipps?ip=194.159.80.39
+        .header("X-IP-Address", "") // https://api.stage.bbc.co.uk/mediaselector/kipps?ip=194.159.80.39
 
     val open = csv("media-selector/open.csv").circular
 
@@ -23,6 +23,6 @@ class MediaSelectorOpen extends Simulation {
     setUp(scn.inject(
          // running on 4 instances (200 x 4 == 800) 
          // build docker images!!!!
-        rampUsersPerSec(100) to(200) during(10 minutes) 
+        rampUsersPerSec(10) to(200) during(10 minutes) 
     ).protocols(httpProtocol))
 }
