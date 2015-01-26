@@ -21,7 +21,7 @@ class Register extends Simulation {
 	val postHeader = Map("Origin" -> "https://ssl.stage.bbc.co.uk")
   
   // printf '%s\n' ADRIAN@LOADTEST{1..10}.com 
-  val emailFeeder = csv("bbcid/email-addresses.csv").circular
+  val emailFeeder = csv("bbcid/email-addresses.csv").queue 
 
 	val scn = scenario("Register")
       .feed(emailFeeder)
