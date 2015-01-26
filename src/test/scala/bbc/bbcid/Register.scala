@@ -40,6 +40,6 @@ class Register extends Simulation {
       .check(substring("Your registration is complete")))
 
     setUp(scn.inject(
-      constantUsersPerSec(25) during(17 minutes) // around 25,000
+      constantUsersPerSec(100) during(45 minutes)
     ).protocols(httpProtocol))
 }
