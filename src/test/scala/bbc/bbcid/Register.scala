@@ -1,3 +1,5 @@
+package bbc.bbcid
+
 import scala.concurrent.duration._
 
 import io.gatling.core.Predef._
@@ -17,8 +19,12 @@ class Register extends Simulation {
 
 	val getHeader = Map("Accept-Encoding" -> "gzip, deflate, sdch")
 	val postHeader = Map("Origin" -> "https://ssl.stage.bbc.co.uk")
+  
+  // printf '%s\n' ADRIAN@LOADTEST{1..10}.com 
+  val emailFeeder = csv("bbcid/email-addresses.csv").circular
 
 	val scn = scenario("Register")
+      .feed(emailFeeder)
       .exec(http("get")
 			.get("/id/register?mode=embedded")
       .check(status.is(200)) 
@@ -26,12 +32,14 @@ class Register extends Simulation {
       .exec(http("post")
 			.post("/id/register")
 			.headers(postHeader)
-			.formParam("email", "super@aidy2.com")
-			.formParam("confirmpassword", "superaidy")
-			.formParam("confirmpassword_confirm", "superaidy")
+			.formParam("email", "${email}")
+			.formParam("confirmpassword", "loadtest")
+			.formParam("confirmpassword_confirm", "loadtest")
 			.formParam("bbcid_submit_button", "Register")
       .check(status.is(200)) 
       .check(substring("Your registration is complete")))
 
-	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
+    setUp(scn.inject(
+      constantUsersPerSec(25) during(17 minutes) // around 25,000
+    ).protocols(httpProtocol))
 }
