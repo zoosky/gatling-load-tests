@@ -10,5 +10,10 @@ GATLING_PATH=~/Projects/gatling-load-tests/src/test/resources/media-selector
 wget --certificate=$CERT_PATH --no-check-certificate $BASE_URL$OPEN_LOG
 wget --certificate=$CERT_PATH --no-check-certificate $BASE_URL$SECURE_LOG
 
-mv $OPEN_LOG $GATLING_PATH/open.csv
-mv $SECURE_LOG $GATLING_PATH/secure.csv
+echo openUrl > $GATLING_PATH/open.csv
+echo secureUrl > $GATLING_PATH/secure.csv
+
+cat $OPEN_LOG >> $GATLING_PATH/open.csv
+cat $SECURE_LOG >> $GATLING_PATH/secure.csv
+
+exit 0
