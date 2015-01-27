@@ -2,11 +2,8 @@ package bbc.sample
 
 import scala.concurrent.duration._
 
-import scala.util.matching.Regex
-
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.jdbc.Predef._
 
 class SampleTest extends Simulation {
 
@@ -20,11 +17,11 @@ class SampleTest extends Simulation {
         .userAgentHeader("""Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:31.0) Gecko/20100101 Firefox/31.0""")
 
     val scn = scenario("Computers Database")
-        .exec(http("homepage")
+        .exec(http("computers")
         .get("/computers")
         .check(status.is(200)))
 
     setUp(scn.inject(
-        constantUsersPerSec(3) during(1 minutes)
+        constantUsersPerSec(3) during(10 seconds)
     ).protocols(httpProtocol)) 
 }
