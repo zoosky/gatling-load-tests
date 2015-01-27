@@ -28,7 +28,7 @@ $ git clone git@github.com:BBC/gatling-load-tests.git
 ```bash 
 $ cd gatling-load-tests
 $ sbt
-> testOnly *SampleTest*
+> testOnly *SampleTest
 ```
 
 ## Real-time metrics
