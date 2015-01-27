@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# openssl -in mycert.p12 -out -nodes mycert.pem 
+CERT_PATH=/etc/pki/tls/private/client.pem
+BASE_URL=https://jenkins.bbc.co.uk/view/psdr/job/mediaselector-loadtest-generator/ws/
+OPEN_LOG=payload.open.log
+SECURE_LOG=payload.secure.log
+GATLING_PATH=~/Projects/gatling-load-tests/src/test/resources/media-selector
+
+wget --certificate=$CERT_PATH --no-check-certificate $BASE_URL$OPEN_LOG
+wget --certificate=$CERT_PATH --no-check-certificate $BASE_URL$SECURE_LOG
+
+mv $OPEN_LOG $GATLING_PATH/open.csv
+mv $SECURE_LOG $GATLING_PATH/secure.csv
