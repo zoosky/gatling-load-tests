@@ -7,7 +7,7 @@ import io.gatling.http.Predef._
 
 class ThingsToDo extends Simulation { 
     val httpProtocol = http
-        .baseURLs("http://m.bbc.co.uk", "http://m.bbc.com")
+        .baseURLs("http://m.stage.bbc.co.uk", "http://m.stage.bbc.com")
         .inferHtmlResources(BlackList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff""", """.*\.(t|o)tf""", """.*\.png"""), WhiteList())
         .acceptHeader("""text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8""")
         .acceptEncodingHeader("""gzip, deflate""")
