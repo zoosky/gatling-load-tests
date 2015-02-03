@@ -33,9 +33,9 @@ $ sbt
 
 ## Real-time metrics
 
-With [docker](https://www.docker.com/whatisdocker/) installed on your system.
+With [docker](https://www.docker.com/) installed on your system.
 ```sh
-$ sh support/scripts/graphite-install.sh
+$ sh bin/graphite-install
 ```
 This should produce a host and port for the dashboard
 ```sh
