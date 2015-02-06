@@ -48,6 +48,6 @@ class ThingsToDo extends Simulation {
         .check(status.is(200)))
       
     setUp(scn.inject(
-        rampUsersPerSec(10) to(1000) during(10 minutes)
+        rampUsersPerSec(10) to(250) during(30 minutes)
     ).protocols(httpProtocol))
 }
