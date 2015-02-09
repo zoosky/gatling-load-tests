@@ -1,5 +1,4 @@
-gatling-load-tests
-==================
+gatling-load-tests ==================
 
 ## Introduction
 
@@ -33,15 +32,11 @@ $ sbt
 
 ## Real-time metrics
 
-With [docker](https://www.docker.com/) installed on your system.
 ```sh
 $ sh bin/graphite-install
+$ cp bin/pg /usr/local/bin 
+$ chmod 755 /usr/local/bin/pg
 ```
-This should produce a host and port for the dashboard
-```sh
-Dashboard running at http://192.168.59.103:49154
-```
-In the gatling.conf add the above docker IP address and enusure relevant values are uncommented.
 
 ```config
  data {
@@ -50,12 +45,8 @@ In the gatling.conf add the above docker IP address and enusure relevant values 
  }
     
  graphite {
-      host = "192.168.59.103"         
-      port = 2003                
-      rootPathPrefix = "gatling"
+      light = false
+      host = "localhost"
+      port = 2003
  }
 ```
-
-Configure the [Grafana dashboard](http://grafana.org/docs/features/intro/) and run test. 
-
-

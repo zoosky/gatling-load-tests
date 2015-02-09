@@ -1,39 +1,16 @@
 #!/bin/bash
 
-echo "starting elasticsearch"
-docker kill bbcnews-elasticsearch >/dev/null 2>&1
-docker rm bbcnews-elasticsearch >/dev/null 2>&1
-docker run -d \
-    -p 9200:9200 \
-    --name bbcnews-elasticsearch bbcnews/elasticsearch
+# epel repo
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sudo rpm -Uvh epel-release-6*.rpm
 
-echo "starting carbon"
-docker kill bbcnews-carbon >/dev/null 2>&1
-docker rm bbcnews-carbon >/dev/null 2>&1
-docker run -d \
-    -p 7002:7002 \
-    -p 2003:2003 \
-    -p 2004:2004 \
-    -v /opt/graphite \
-    --name bbcnews-carbon bbcnews/carbon
+sudo yum install -y gcc
+sudo yum install -y python-devel
+sudo yum -y install python-pip
 
-echo "starting graphite"
-docker kill bbcnews-graphite >/dev/null 2>&1
-docker rm bbcnews-graphite >/dev/null 2>&1
-docker run -d \
-    --volumes-from bbcnews-carbon \
-    --name bbcnews-graphite bbcnews/graphite
+sudo pip install whisper
+sudo pip install carbon
+sudo pip install graphite-web
 
-echo "starting nginx"
-docker kill bbcnews-nginx >/dev/null 2>&1
-docker rm bbcnews-nginx >/dev/null 2>&1
-docker run -d -p 8080:80 --name bbcnews-nginx --link bbcnews-graphite:bbcnews-graphite-link bbcnews/nginx
+exit 0
 
-echo "starting grafana"
-docker kill bbcnews-grafana >/dev/null 2>&1
-docker rm bbcnews-grafana >/dev/null 2>&1
-docker run -d -P --name bbcnews-grafana bbcnews/grafana
-
-PORT=`docker ps | grep bbcnews-grafana | sed -e 's/.*://' | sed -e 's/\-.*//'`
-HOST=`/usr/bin/env | grep DOCKER_HOST | perl -pe 's/.*\/([0-9\.]+):.*/$1/'`
-echo "Dashboard running at http://$HOST:$PORT"
