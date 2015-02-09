@@ -1,4 +1,5 @@
-gatling-load-tests ==================
+gatling-load-tests 
+==================
 
 ## Introduction
 
@@ -34,11 +35,10 @@ $ sbt
 
 ```sh
 $ sh bin/graphite-install
-$ cp bin/pg /usr/local/bin 
-$ chmod 755 /usr/local/bin/pg
 ```
 
 ```config
+# gatling.conf
  data {
      writers = "console, file, graphite"
      reader = file
@@ -49,4 +49,9 @@ $ chmod 755 /usr/local/bin/pg
       host = "localhost"
       port = 2003
  }
+```
+
+Open a separate terminal window
+```sh 
+$ nc -l 2003 | awk -f bin/pg.awk
 ```
