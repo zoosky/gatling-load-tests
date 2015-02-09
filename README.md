@@ -39,6 +39,7 @@ $ chmod 755 /usr/local/bin/pg
 ```
 
 ```config
+# gatling.conf
  data {
      writers = "console, file, graphite"
      reader = file
