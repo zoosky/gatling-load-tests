@@ -36,20 +36,6 @@ $ sbt
 $ sh bin/graphite-install
 ```
 
-```config
-# gatling.conf
- data {
-     writers = "console, file, graphite"
-     reader = file
- }
-    
- graphite {
-      light = false
-      host = "localhost"
-      port = 2003
- }
-```
-
 Open a separate terminal window
 ```sh 
 $ nc -l 2003 | awk -f bin/pg.awk
