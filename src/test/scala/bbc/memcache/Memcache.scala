@@ -32,7 +32,6 @@ class Memcache extends Simulation {
         .exec(http("recipe: pear").get("/food/recipes/search?keywords=pear/").check(status.is(200)))
         .exec(http("recipe: chicken").get("/food/recipes/search?keywords=chicken/").check(status.is(200)))
         .exec(http("beef").get("/food/beef/").check(status.is(200)))
-        .exec(http("celebration").get("/food/recipes/acelebrationofsomers_92199/").check(status.is(200)))
         .exec(http("ingredients").get("/food/ingredients/").check(status.is(200)))
         .exec(http("chefs").get("/food/chefs/").check(status.is(200)))
         .exec(http("recipes").get("/food/recipes/").check(status.is(200)))
