@@ -1,0 +1,5 @@
+#!/bin/bash
+
+netstat -tupa | grep 11211 | grep ESTAB | wc -l
+
+exit 0

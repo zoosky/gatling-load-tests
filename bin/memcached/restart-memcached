@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo service memcached restart
+sudo service session-memcached restart
+
+exit 0
