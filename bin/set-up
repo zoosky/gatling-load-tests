@@ -3,10 +3,11 @@
 # This is a set-up script for running Gatling on a BBC CentOS build.
 cd $(dirname $0)
 
-sh "linux-tuning"
-sh "bash-config"
-sh "sbt-config"
-sh "vim-install-config"
+sh linux-tuning
+sh bash-config
+sh sbt-config
+sh vim-install-config
+sh graphite-install
 
 echo "install netcat"
 sudo yum install -y nc.x86_64
