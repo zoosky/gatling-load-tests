@@ -10,5 +10,5 @@ scalacOptions := Seq(
 
 javaOptions in Gatling := Seq("-Xms2G", "-Xmx5G")
 
-libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.1.3" % "test,it"
-libraryDependencies += "io.gatling"            % "gatling-test-framework"    % "2.1.3" % "test,it"
+libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.1.4" % "test,it"
+libraryDependencies += "io.gatling"            % "gatling-test-framework"    % "2.1.4" % "test,it"
