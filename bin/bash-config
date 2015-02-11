@@ -3,7 +3,7 @@
 echo "Some Bash"
 cat << EOF > ~/.bashrc
 alias ..="cd .."
-alias gt="~/gatling-load-tests"
+alias gt="cd ~/gatling-load-tests"
 alias cl='clear'
 alias vi='vim'
 alias pg="nc -l 2003 | awk -f bin/pg.awk"
