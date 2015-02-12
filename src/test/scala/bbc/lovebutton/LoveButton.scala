@@ -25,6 +25,8 @@ class LoveButton extends Simulation {
       http("bbclove.js").get("http://static.test.bbci.co.uk/modules/love/0.1.3/modules/bbclove.js").check(status.is(200))))
 
   setUp(scn.inject(
-    rampUsersPerSec(10) to(300) during(30 minutes)
+    // 4 requests * 100 = 400 RPS
+    rampUsersPerSec(10) to(100) during(20 minutes),
+    constantUsersPerSec(100) during(10 minutes)
   ).protocols(httpProtocol))
 }
