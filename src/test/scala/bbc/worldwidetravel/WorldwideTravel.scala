@@ -20,8 +20,9 @@ class WorldwideTravel extends Simulation {
   val travelUrl = csv("worldwide-travel/worldwidetravelurls.csv").circular
 
   val scn = scenario("Worldwide Travel")
+    .feed(travelUrl)
     .exec(http("Travel v2")
-    .get("${travelUrl}")
+    .get("${travelurls}")
     .check(status.is(200)))
 
   setUp(scn.inject(
