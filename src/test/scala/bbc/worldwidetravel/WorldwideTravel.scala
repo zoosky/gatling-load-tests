@@ -39,10 +39,10 @@ class WorldwideTravel extends Simulation {
     .check(status.is(200)))
 
   setUp(scn.inject(
-    rampUsersPerSec(4) to(8) during(2 minutes),
+    rampUsersPerSec(4) to(8) during(1 minutes),
     constantUsersPerSec(8) during(8 minutes),
-    rampUsersPerSec(8) to(38) during(2 minutes),
-    constantUsersPerSec(38) during(3 minutes)
+    rampUsersPerSec(8) to(35) during(1 minutes),
+    constantUsersPerSec(35) during(1 minutes)
   ).protocols(httpProtocol))
 }
 
