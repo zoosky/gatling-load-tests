@@ -17,9 +17,11 @@ class WorldwideTravel extends Simulation {
     .connection("""keep-alive""")
     .userAgentHeader("""Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:31.0) Gecko/20100101 Firefox/31.0""")
 
+  val travelUrl = csv("worldwide-travel/worldwidetravelurls.csv").circular
+
   val scn = scenario("Worldwide Travel")
     .exec(http("Travel v2")
-    .get("${travelurls}")
+    .get("${travelUrl}")
     .check(status.is(200)))
 
   setUp(scn.inject(
