@@ -18,11 +18,14 @@ class WorldwideTravel extends Simulation {
     .userAgentHeader("""Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:31.0) Gecko/20100101 Firefox/31.0""")
 
   val scn = scenario("Worldwide Travel")
-    .exec(http("worldwidetravel")
-    .get("/travel/story/20150112-the-gateway-to-kilimanjaro")
+    .exec(http("Travel v2")
+    .get("${travelurls}")
     .check(status.is(200)))
 
   setUp(scn.inject(
-    constantUsersPerSec(2) during(300 seconds)
+    rampUsersPerSec(10) to(30) during(2 minutes),
+    constantUsersPerSec(30) during(8 minutes),
+    rampUsersPerSec(30) to(150) during(2 minutes),
+    constantUsersPerSec(150) during(3 minutes)
   ).protocols(httpProtocol))
 }
