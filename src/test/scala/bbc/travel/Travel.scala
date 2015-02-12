@@ -28,7 +28,7 @@ class Travel extends Simulation {
         .exec(http("Rail Incidents").get("/travel/${geoname_id}/incidents/rail").check(status.is(200)))
         .exec(http("Planned Rail Incidents").get("/travel/${/geoname_id}/incidents/rail/planned").check(status.is(200)))
         .exec(http("Light Rail Incidents").get("/travel/${geoname_id}/incidents/light-rail").check(status.is(200)))
-        
+
     setUp(scn.inject(
         // This load injection is just for testing the test
         atOnceUsers(5)
