@@ -26,7 +26,7 @@ class LoveButton extends Simulation {
 
   setUp(scn.inject(
     // 4 requests * 100 = 400 RPS
-    rampUsersPerSec(10) to(100) during(20 minutes),
+    rampUsersPerSec(10) to(100) during(10 minutes),
     constantUsersPerSec(100) during(10 minutes)
   ).protocols(httpProtocol))
 }
