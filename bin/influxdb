@@ -1,0 +1,9 @@
+#!/bin/bash
+
+wget http://s3.amazonaws.com/influxdb/influxdb-latest-1.x86_64.rpm
+sudo rpm -ivh influxdb-latest-1.x86_64.rpm
+
+# start the demon
+sudo /etc/init.d/influxdb start
+
+exit 0
