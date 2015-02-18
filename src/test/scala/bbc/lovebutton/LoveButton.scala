@@ -20,13 +20,13 @@ class LoveButton extends Simulation {
     .exec(http("Love Button Page")
     .get("/modules/love/test/load").check(status.is(200))
     .resources(
-      http("love.css").get("http://static.test.bbci.co.uk/modules/love/0.1.3/style/love.css").check(status.is(200)),
-      http("gelicons-social.ttf").get("http://static.test.bbci.co.uk/gelstyles/0.9.0/fonts/gelicons-social.ttf").check(status.is(200)),
-      http("bbclove.js").get("http://static.test.bbci.co.uk/modules/love/0.1.3/modules/bbclove.js").check(status.is(200))))
+      http("love.css").get("http://static.stage.bbci.co.uk/modules/love/0.2.0/style/love.css").check(status.is(200)),
+      http("gelicons-social.ttf").get("http://static.stage.bbci.co.uk/gelstyles/0.8.2/fonts/gelicons-social.ttf").check(status.is(200)),
+      http("bbclove.js").get("http://static.stage.bbci.co.uk/modules/love/0.2.0/modules/bbclove.js").check(status.is(200))))
 
   setUp(scn.inject(
     // 4 requests * 100 = 400 RPS
-    rampUsersPerSec(10) to(100) during(20 minutes),
+    rampUsersPerSec(10) to(100) during(10 minutes),
     constantUsersPerSec(100) during(10 minutes)
   ).protocols(httpProtocol))
 }
