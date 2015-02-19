@@ -5,7 +5,7 @@ import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 import scala.concurrent.duration._
 
-class Oauth extends Simulation {
+class OAuth extends Simulation {
 
   val httpProtocol = http
     .baseURL("https://ssl.stage.bbc.co.uk")
@@ -19,9 +19,11 @@ class Oauth extends Simulation {
     .get("/oauth/authorize?response_type=token&client_id=iplayer-ios&redirect_uri=http://www.bbc.co.uk/iPlayer&scope=plays.any.r")
     .check(css("#bbcid-signin-form", "action").saveAs("signInPostUrl"))
 
+  var value = new java.util.concurrent.atomic.AtomicInteger(0)
+
   val signInPost = http("signInPost")
     .post("${signInPostUrl}")
-    .formParam("unique", "ADRIAN@LOADTEST1.com")
+    .formParam("unique", s"ADRIAN@LOADTEST${value.getAndIncrement()}.com")
     .formParam("password", "loadtest")
     .formParam("bbcid_submit_button", "Sign in")
     .check(css("#confirmationForm input[name=authorizationRequest]", "value").saveAs("authorizationRequest"),
@@ -41,5 +43,5 @@ class Oauth extends Simulation {
     .exec(signInPost)
     .exec(oauth)
 
-  setUp(iPlayerOAuthLoginScn.inject(atOnceUsers(1))).protocols(httpProtocol)
+  setUp(iPlayerOAuthLoginScn.inject(atOnceUsers(3))).protocols(httpProtocol)
 }
