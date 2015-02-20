@@ -5,8 +5,6 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
-// c3.xlarge with 7.5G mem
-// sbt -J-Xmx5G -J-Xms2G
 class MediaSelectorSecure extends Simulation {
     
     val httpProtocol = http
@@ -21,8 +19,6 @@ class MediaSelectorSecure extends Simulation {
         .check(status.is(200)))
 
     setUp(scn.inject(
-        // running on 4 instances (200 x 4 == 800) 
-        // build docker images!!!!
-        rampUsersPerSec(10) to(200) during(10 minutes) 
+        rampUsersPerSec(10) to(750) during(20 minutes) 
     ).protocols(httpProtocol))
 }
