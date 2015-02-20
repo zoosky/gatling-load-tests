@@ -44,11 +44,9 @@ class SignInOAuth extends Simulation {
   val iPlayerOAuthLoginScn = scenario("iPlayerOAuthLogin")
     .feed(emailFeeder)
     .exec(signIn)
-    .pause(1)
     .exec(signInPost)
-    .pause(1)
     .exec(oauth)
-    .pause(1)
+    .pause(3)
 
   setUp(iPlayerOAuthLoginScn.inject(
     rampUsersPerSec(1) to(120) during(20 minutes) 
