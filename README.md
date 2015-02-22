@@ -6,8 +6,8 @@ gatling-load-tests
 ### [Gatling](http://gatling.io/)
 
 Gatling is an open-source load test tool, that makes a break from 
-traditional load-tools by utilising asynchronous concurrency using a Scala DSL
-for its scripting.
+traditional load-tools by utilising asynchronous concurrency and 
+using a Scala DSL for its scripting.
 
 ### [SBT](http://www.scala-sbt.org/)
 SBT is the de-facto build tool for Scala projects.
