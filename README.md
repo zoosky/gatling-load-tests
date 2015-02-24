@@ -29,3 +29,14 @@ $ git clone git@github.com:BBC/gatling-load-tests.git; cd gatling-load-tests
 $ sbt
 > testOnly *SampleTest
 ```
+
+## Real-time metrics
+```sh
+$ sh bin/graphite-install
+```
+
+Open a separate terminal window
+
+```sh 
+$ nc -l 2003 | awk -f bin/pg.awk
+```
