@@ -27,8 +27,7 @@ class Memcache extends Simulation {
 
     val food = scenario("Food")
       .group("Food") {
-        exec(http("food").get("/food/").check(status.is(200)))
-          .exec(http("programmes").get("/food/programmes/").check(status.is(200)))
+          exec(http("programmes").get("/food/programmes/").check(status.is(200)))
           .exec(http("recipe: fish curry").get("/food/recipes/madras_fish_curry_of_82254/").check(status.is(200)))
           .exec(http("recipe: japanese").get("/food/recipes/ajitsuke_tamago_japanese_65686/").check(status.is(200)))
           .exec(http("recipe: egg").get("/food/recipes/search?keywords=egg/").check(status.is(200)))
@@ -59,8 +58,8 @@ class Memcache extends Simulation {
       }
 
     setUp(
-      hp.inject(constantUsersPerSec(50) during(20 minutes)),
-      food.inject(constantUsersPerSec(10) during(20 minutes)),
-      bbcId.inject(constantUsersPerSec(10) during(20 minutes))
+      hp.inject(constantUsersPerSec(200) during(20 seconds)),
+      food.inject(constantUsersPerSec(50) during(20 seconds)),
+      bbcId.inject(constantUsersPerSec(50) during(20 seconds))
     ).protocols(httpProtocol)
 }
