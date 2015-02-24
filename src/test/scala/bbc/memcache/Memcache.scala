@@ -60,6 +60,6 @@ class Memcache extends Simulation {
     setUp(
       hp.inject(constantUsersPerSec(50) during(20 minutes)),
       food.inject(constantUsersPerSec(10) during(20 minutes)),
-      bbcId.inject(constantUsersPerSec(10) during(20 minutes))
+      bbcId.inject(constantUsersPerSec(50) during(20 minutes))
     ).protocols(httpProtocol)
 }
