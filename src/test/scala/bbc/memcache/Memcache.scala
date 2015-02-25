@@ -45,7 +45,6 @@ class Memcache extends Simulation {
         exec(http("sign-in page")
           .get("https://ssl.stage.bbc.co.uk/id/signin")
           .check(status.is(200)))
-          .pause(5)
           .exec(http("submit sign-in")
           .post("https://ssl.stage.bbc.co.uk/id/signin")
           .formParam("unique", "ADRIAN@LOADTEST1.com")
@@ -58,8 +57,16 @@ class Memcache extends Simulation {
       }
 
     setUp(
-      hp.inject(constantUsersPerSec(50) during(20 minutes)),
-      food.inject(constantUsersPerSec(10) during(20 minutes)),
-      bbcId.inject(constantUsersPerSec(10) during(20 minutes))
+      hp.inject(
+        rampUsersPerSec(1) to(50) during(5 seconds),
+        constantUsersPerSec(50) during(20 seconds)
+      ),
+      food.inject(
+        rampUsersPerSec(1) to(10) during(5 seconds),       
+        constantUsersPerSec(10) during(20 seconds)
+      ),
+      bbcId.inject(
+        rampUsersPerSec(1) to(50) during(5 seconds),
+        constantUsersPerSec(50) during(20 seconds))
     ).protocols(httpProtocol)
 }
