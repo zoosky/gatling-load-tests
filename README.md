@@ -31,12 +31,5 @@ $ sbt
 ```
 
 ## Real-time metrics
-```sh
-$ sh bin/graphite-install
-```
+David Blooman has created [InfluxDB and Grafana Docker containers](https://github.com/DaveBlooman/gatling-docker) to view and persist realtime data. 
 
-Open a separate terminal window
-
-```sh 
-$ nc -l 2003 | awk -f bin/pg.awk
-```
