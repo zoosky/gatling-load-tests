@@ -32,7 +32,7 @@ class LdpSport extends Simulation {
     .exec(http("thing").get(s"/thing/premier-league?api_key=$apiKey").check(status.is(200)))
     .exec(http("formula1").get(s"/formula1/people?api_key=$apiKey").check(status.is(200)))
     .exec(http("discipline").get(s"/discipline/football?api_key=$apiKey").check(status.is(200)))
-    .exec(http("winter-olympics").get(s"/winter-olympics/disciplines?api_key==$apiKey").check(status.is(200)))
+    .exec(http("winter-olympics").get(s"/winter-olympics/disciplines?api_key=$apiKey").check(status.is(200)))
          
   setUp(scn.inject(
     atOnceUsers(1)
