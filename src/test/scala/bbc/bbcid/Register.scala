@@ -17,11 +17,10 @@ class Register extends Simulation {
     .contentTypeHeader("application/x-www-form-urlencoded")
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0")
 
-  val scn = scenario("Register")
-    .exec(http("get register")
-    .get("/oauth/authorize?response_type=token&client_id=iplayer-ios&redirect_uri=http://www.bbc.co.uk/iPlayer&scope=plays.any.r&action=register"))
+  val getRegister = http("get register") 
+    .get("/oauth/authorize?response_type=token&client_id=iplayer-ios&redirect_uri=http://www.bbc.co.uk/iPlayer&scope=plays.any.r&action=register")
 
-    .exec(http("post is old enough")
+  val isOldEnough = http("is old enough") 
     .post("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Foauth%2Fauthorize%3Fredirect_uri%3Dhttp%253A%252F%252Fwww.bbc.co.uk%252FiPlayer%26scope%3Dplays.any.r%26response_type%3Dtoken%26client_id%3Diplayer-ios&mode=embedded")
     .formParam("isageold", "1")
     .formParam("uncollected_isoversixteenundersixteen", "1")
@@ -32,18 +31,23 @@ class Register extends Simulation {
     .formParam("uncollected_dateofbirthundersixteen_day", "")
     .formParam("uncollected_dateofbirthundersixteen_month", "")
     .formParam("uncollected_dateofbirthundersixteen_year", "")
-    .formParam("bbcid_submit_button", "Register"))
+    .formParam("bbcid_submit_button", "Register")
 
-    .exec(http("post register")
+  val postRegister = http("post register") 
     .post("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Foauth%2Fauthorize%3Fredirect_uri%3Dhttp%253A%252F%252Fwww.bbc.co.uk%252FiPlayer%26scope%3Dplays.any.r%26response_type%3Dtoken%26client_id%3Diplayer-ios&mode=embedded")
     .formParam("collected_isageold", "1")
     .formParam("email", session => s"aidy@${new Random().nextInt(Int.MaxValue)}.com")
     .formParam("confirmpassword", "loadtest")
     .formParam("confirmpassword_confirm", "loadtest")
     .formParam("bbcid_submit_button", "Register")
-    .check(substring("registration is complete")))
+    .check(substring("registration is complete"))
 
-  setUp(scn.inject(
+  val registerScenario = scenario("register Scenario")
+    .exec(getRegister) 
+    .exec(isOldEnough)
+    .exec(postRegister)
+
+  setUp(registerScenario.inject(
     rampUsersPerSec(10) to(150) during(5 minutes) 
   ).protocols(httpProtocol))
 }
