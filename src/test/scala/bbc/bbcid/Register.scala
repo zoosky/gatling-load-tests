@@ -20,13 +20,14 @@ class Register extends Simulation {
 	val scn = scenario("Register")
     .exec(http("register")
     .get("/id/register"))
-		.exec(http("post register")
+    .exec(http("post register")
     .post("/id/register")
-    .formParam("email", session => s"aidy@${new Random().nextInt(100000)}.com")
+    .formParam("email", session => s"aidy@${new Random().nextInt(2147483647)}.com")
     .formParam("confirmpassword", "loadtest")
     .formParam("confirmpassword_confirm", "loadtest")
-    .check(substring("registration is complete"))
-  )
+    .check(substring("registration is complete")))
 
-	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
+    setUp(scn.inject(
+      rampUsersPerSec(10) to(150) during(5 minutes) 
+    ).protocols(httpProtocol))
 }
