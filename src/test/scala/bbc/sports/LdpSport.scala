@@ -11,11 +11,12 @@ class LdpSport extends Simulation {
 
   val httpProtocol = http
     .baseURL(s"https://api.$env.bbc.co.uk/ldp-sport")
+    .header("Content-Type", "application/json+ld")
     .disableCaching
     
   val apiKey = "aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG"
 
-  val scn = scenario("Sport")
+  val sportPalClient = scenario("Sport PAL client")
     .group("Football") {
       exec(http("digests").get(s"/football/competitions/premier-league/teams/digests?api_key=$apiKey").check(status.is(200)))
       .exec(http("premier league teams").get(s"/football/competitions/premier-league/teams?api_key=$apiKey").check(status.is(200)))
@@ -28,13 +29,22 @@ class LdpSport extends Simulation {
     }
 
     .exec(http("boxing").get(s"/boxing/competition/commonwealth-games/stage/mens-heavy-91kg?season=2014&api_key=$apiKey").check(status.is(200)))
-    .exec(http("navigation").get(s"/nav?api_key=$apiKey").check(status.is(200)))
     .exec(http("thing").get(s"/thing/premier-league?api_key=$apiKey").check(status.is(200)))
     .exec(http("formula1").get(s"/formula1/people?api_key=$apiKey").check(status.is(200)))
     .exec(http("discipline").get(s"/discipline/football?api_key=$apiKey").check(status.is(200)))
     .exec(http("winter-olympics").get(s"/winter-olympics/disciplines?api_key=$apiKey").check(status.is(200)))
-         
-  setUp(scn.inject(
-    atOnceUsers(1)
-  ).protocols(httpProtocol))
+
+  val cpsNavbuilder = scenario("CPS Navbuilder")
+    .exec(http("nav builder").get(s"/nav?api_key=$apiKey").check(status.is(200)))
+
+  // sports data scenario goes here  
+
+  setUp(
+    sportPalClient.inject(
+      atOnceUsers(1)
+    ),
+    cpsNavbuilder.inject(
+      atOnceUsers(1)
+    )
+  ).protocols(httpProtocol)
 }
