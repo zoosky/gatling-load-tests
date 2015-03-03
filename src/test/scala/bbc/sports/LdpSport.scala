@@ -5,9 +5,11 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
-class LdpSport extends Simulation {
-
+trait SystemProps {
   val env = System.getProperty("env")
+}
+
+class LdpSport extends Simulation with SystemProps {
 
   val httpProtocol = http
     .baseURL(s"https://api.$env.bbc.co.uk/ldp-sport")
