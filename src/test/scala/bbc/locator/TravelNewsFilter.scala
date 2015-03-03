@@ -11,10 +11,10 @@ class TravelNewsFilter extends Simulation {
     .baseURL("https://api.stage.bbc.co.uk")
     .acceptHeader("application/xml")
 
-  val geonameId = csv("locator/ds_001-geonames_domestic-2304.csv").circular 
+  val domesticGeonames = csv("locator/ds_001-geonames_domestic-2304.csv").circular 
 
   val scn = scenario("Travel News Filter")
-    .feed(geonameId)
+    .feed(domesticGeonames)
     .exec(http("travel news filter")
     .get("/locator/locations/${geonameId}/details?df=travelnews")
     .check(status.is(200)))
