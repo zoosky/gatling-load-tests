@@ -13,7 +13,7 @@ class LdpSport extends Simulation with SystemProps {
 
   val httpProtocol = http
     .baseURL(s"https://api.$env.bbc.co.uk/ldp-sport")
-    .header("Content-Type", "application/json+ld")
+    .acceptHeader("application/json-ld")
     .disableCaching
     
   val apiKey = "aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG"
