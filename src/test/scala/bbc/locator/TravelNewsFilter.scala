@@ -7,7 +7,9 @@ import io.gatling.http.Predef._
 
 class TravelNewsFilter extends Simulation {
 
-  val httpProtocol = http.baseURL("https://api.stage.bbc.co.uk")
+  val httpProtocol = http
+    .baseURL("https://api.stage.bbc.co.uk")
+    .acceptHeader("application/xml")
 
   val geonameId = csv("locator/ds_001-geonames_domestic-2304.csv").circular 
 
@@ -18,7 +20,7 @@ class TravelNewsFilter extends Simulation {
     .check(status.is(200)))
 
   setUp(scn.inject(
-    rampUsersPerSec(10) to(300) during(5 minutes),
-    constantUsersPerSec(300) during(15 minutes)
+    rampUsersPerSec(5) to(50) during(5 minutes),
+    constantUsersPerSec(50) during(15 minutes)
   ).protocols(httpProtocol))
 }
