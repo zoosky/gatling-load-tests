@@ -1,4 +1,4 @@
-package bbc.sports
+package bbc.sport
 
 import scala.concurrent.duration._
 
