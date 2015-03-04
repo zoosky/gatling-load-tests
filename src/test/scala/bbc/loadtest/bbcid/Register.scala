@@ -1,4 +1,4 @@
-package bbcid
+package bbc.loadtest.bbcid
 
 import scala.concurrent.duration._
 import scala.util.Random
@@ -42,7 +42,7 @@ class Register extends Simulation {
     .formParam("bbcid_submit_button", "Register")
     .check(substring("registration is complete"))
 
-  val registerScenario = scenario("register Scenario")
+  val registerScenario = scenario("Register Scenario")
     .exec(getRegister) 
     .exec(isOldEnough)
     .exec(postRegister)
