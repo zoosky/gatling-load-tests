@@ -1,0 +1,15 @@
+palUrl
+/football/competitions/premier-league/teams?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/competitions/premier-league/teams/digests?szYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/teams/urn:sports-data:TFBB60?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/team/manchester-united?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/venues?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/teams?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/competitions/premier-league,championship?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/football/teams/paginated?pageSize=10&page=1&aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/boxing/competition/commonwealth-games/stage/mens-heavy-91kg?season=2014&aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/formula1/people?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/discipline/football?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+/winter-olympics/disciplines?aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
+
+
