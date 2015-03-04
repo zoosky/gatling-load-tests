@@ -17,7 +17,7 @@ class LdpSport extends Simulation with SystemProps {
 
   val palClient = http("Pal Client").get("${palUrl}").check(status.is(200))
   val cpsNavBuilder = http("Nav Builder").get("/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG").check(status.is(200))
-  val sportData = http("Sports Data").get("${sportDataUrl}").check(status.is(200))
+  val sportData = http("Sports Data").get("${sportDataUrl}").header("Accept", "application/xml").check(status.is(200))
 
   val ldpSport = scenario("ldpSport")
     .feed(palUrls)
