@@ -1,4 +1,4 @@
-package bbc.homepage
+package bbc.loadtest.homepage
 
 import scala.concurrent.duration._
 
@@ -32,8 +32,8 @@ class HomePageV5 extends Simulation {
     .get("/modules/weather/threeday/en/${geoname_id}")
     .check(status.is(200))))
 
-    setUp(scn.inject(
-      rampUsersPerSec(10) to(300) during(3 minutes),
-      constantUsersPerSec(300) during(17 minutes)
-    ).protocols(httpProtocol))
+  setUp(scn.inject(
+    rampUsersPerSec(10) to(300) during(3 minutes),
+    constantUsersPerSec(300) during(17 minutes)
+  ).protocols(httpProtocol))
 }

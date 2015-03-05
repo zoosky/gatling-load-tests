@@ -1,4 +1,4 @@
-package bbc.lovebutton
+package bbc.loadtest.lovebutton
 
 import scala.concurrent.duration._
 

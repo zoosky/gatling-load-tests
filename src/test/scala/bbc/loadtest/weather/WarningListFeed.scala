@@ -1,27 +1,24 @@
-package bbc.weather
+package bbc.loadtest.weather
 
 import scala.concurrent.duration._
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.jdbc.Predef._
 
 class WeatherListFeed extends Simulation {
 
-    val httpProtocol = http
-        .baseURL("http://weather-warnings-publish.test.api.bbci.co.uk")
+  val httpProtocol = http
+    .baseURL("http://weather-warnings-publish.test.api.bbci.co.uk")
 
-    val scn = scenario("Weather List Feed")
-        .exec(http("Weather List Feed")
-        .get("/feeds/en/warnings-list.json")
-        .check(status.is(200))
-    ) 
+  val scn = scenario("Weather List Feed")
+    .exec(http("Weather List Feed")
+    .get("/feeds/en/warnings-list.json")
+    .check(status.is(200))) 
 
-    setUp(scn.inject(
-        rampUsersPerSec(10) to(300) during(5 minutes),
-        constantUsersPerSec(300) during(5 minutes),
-        rampUsersPerSec(300) to(750) during(5 minutes),
-        constantUsersPerSec(750) during(5 minutes)
-    ).protocols(httpProtocol))
-
+  setUp(scn.inject(
+    rampUsersPerSec(10) to(300) during(5 minutes),
+    constantUsersPerSec(300) during(5 minutes),
+    rampUsersPerSec(300) to(750) during(5 minutes),
+    constantUsersPerSec(750) during(5 minutes)
+  ).protocols(httpProtocol))
 }

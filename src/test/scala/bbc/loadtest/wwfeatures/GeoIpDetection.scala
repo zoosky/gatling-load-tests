@@ -1,10 +1,9 @@
-package bbc.wwfeatures
+package bbc.loadtest.wwfeatures
 
 import scala.concurrent.duration._
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.jdbc.Predef._
 
 class GeoIpDetection extends Simulation {
 
@@ -18,11 +17,11 @@ class GeoIpDetection extends Simulation {
     .connection("""keep-alive""")
     .userAgentHeader("""Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:31.0) Gecko/20100101 Firefox/31.0""")
 
-    val scn = scenario("Earth")
-      .exec(addCookie(Cookie("ForgeWWCVFCountryCode", "us")))
-      .exec(http("earth")
-      .get("""/earth""").check(status.is(200)))
+  val scn = scenario("Earth")
+    .exec(addCookie(Cookie("ForgeWWCVFCountryCode", "us")))
+    .exec(http("earth")
+    .get("""/earth""").check(status.is(200)))
 
-    setUp(scn.inject(
-      constantUsersPerSec(150) during(20.minutes)).protocols(httpProtocol))
+  setUp(scn.inject(
+    constantUsersPerSec(150) during(20.minutes)).protocols(httpProtocol))
 }
