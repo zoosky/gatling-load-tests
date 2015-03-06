@@ -16,8 +16,8 @@ class LdpSport extends Simulation with SystemProps {
     .disableCaching
 
   val palClient = http("Pal Client").get("${palUrl}").check(status.is(200))
-  val cpsNavBuilder = http("Nav Builder").get("https://api.test.bbc.co.uk/ldp-sport/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG").check(status.is(200))
-  val sportData = http("Sports Data").get(s"http://data.$env.bbc.co.uk" + "${sportDataUrl}").header("Accept", "application/xml").check(status.is(200))
+  val cpsNavBuilder = http("Nav Builder").get(s"https://api.$env.bbc.co.uk/ldp-sport/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG").check(status.is(200))
+  val sportData = http("Sports Data").get("${sportDataUrl}").header("Accept", "application/xml").check(status.is(200))
 
   val ldpSport = scenario("ldpSport")
     .feed(palUrls)
