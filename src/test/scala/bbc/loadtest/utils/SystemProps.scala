@@ -1,5 +1,6 @@
 package bbc.loadtest.utils
 
 trait SystemProps {
-  val env = System.getProperty("env")
+  val prop = System.getProperty("env") 
+  val env = if (prop.toUpperCase == "LIVE") "" else "." + prop
 }
