@@ -21,16 +21,16 @@ class LdpSport extends Simulation with SystemProps {
 
   val ldpSport = scenario("ldpSport")
     .feed(palUrls)
-    .exec(palClient)
-    .exec(cpsNavBuilder)
+    .exec(palClient).pause(1)
+    .exec(cpsNavBuilder).pause(1)
     .feed(sportDataUrls)
-    .exec(sportData)
+    .exec(sportData).pause(1)
 
   setUp(ldpSport.inject(
-   // atOnceUsers(2)
-    rampUsersPerSec(1) to 33 during(5 seconds),    //1
-    constantUsersPerSec(33) during(10 minutes),    //2
-    rampUsersPerSec(33) to 333 during(20 minutes), //3
-    constantUsersPerSec(333) during(30 minutes)    //4
+    // atOnceUsers(2)
+    rampUsersPerSec(1) to 100 during(5 seconds),    //1
+    constantUsersPerSec(100) during(10 minutes),    //2
+    rampUsersPerSec(100) to 1000 during(20 minutes), //3
+    constantUsersPerSec(1000) during(30 minutes)    //4
   ).protocols(httpProtocol))
 }
