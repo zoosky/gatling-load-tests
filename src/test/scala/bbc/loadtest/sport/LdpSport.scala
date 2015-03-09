@@ -15,9 +15,9 @@ class LdpSport extends Simulation with SystemProps {
     .acceptHeader("application/json-ld")
     .disableCaching
 
-  val palClient = http("Pal Client").get("${palUrl}").check(status.is(200))
-  val cpsNavBuilder = http("Nav Builder").get(s"https://api$env.bbc.co.uk/ldp-sport/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG").check(status.is(200))
-  val sportData = http("Sports Data").get("${sportDataUrl}").header("Accept", "application/xml").check(status.is(200))
+  val palClient = http("Pal Client").get("${palUrl}").check(status.in(Seq(200, 201, 404)))
+  val cpsNavBuilder = http("Nav Builder").get(s"https://api$env.bbc.co.uk/ldp-sport/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG").check(status.in(Seq(200, 201, 404)))
+  val sportData = http("Sports Data").get("${sportDataUrl}").header("Accept", "application/xml").check(status.in(Seq(200, 201, 404)))
 
   val ldpSport = scenario("ldpSport")
     .feed(palUrls)
@@ -27,7 +27,10 @@ class LdpSport extends Simulation with SystemProps {
     .exec(sportData)
 
   setUp(ldpSport.inject(
-    // constantUsersPerSec(12) during(10 seconds)
-    atOnceUsers(2)
+   // atOnceUsers(2)
+    rampUsersPerSec(1) to 33 during(5 seconds),    //1
+    constantUsersPerSec(33) during(10 minutes),    //2
+    rampUsersPerSec(33) to 333 during(20 minutes), //3
+    constantUsersPerSec(333) during(30 minutes)    //4
   ).protocols(httpProtocol))
 }
