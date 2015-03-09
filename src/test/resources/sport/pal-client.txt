@@ -1,3 +1,4 @@
+palUrl
 /sport-linked-data/athletics/competition/commonwealth-games/stage/womens-4x100m-relay?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
 /sport-linked-data/athletics/competition/commonwealth-games/stage/mens-100m?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
 /sport-linked-data/athletics/competition/commonwealth-games/stage/mens-5000m?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG
