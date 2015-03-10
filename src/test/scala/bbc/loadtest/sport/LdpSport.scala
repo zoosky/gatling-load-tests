@@ -32,6 +32,9 @@ class LdpSport extends Simulation with BaseUrls {
     .check(status.in(200, 201, 404)))
 
   setUp(ldpSport.inject(
-    constantUsersPerSec(10) during(5 minutes)
+    rampUsersPerSec(11) to 33 during(10 seconds),
+    constantUsersPerSec(33) during(10 minutes),
+    rampUsersPerSec(33) to 333 during(20 minutes),
+    constantUsersPerSec(333) during(30 minutes)
   ).protocols(httpProtocol))
 }
