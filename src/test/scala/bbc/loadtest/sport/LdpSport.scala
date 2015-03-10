@@ -3,39 +3,34 @@ package bbc.loadtest.sport
 import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import bbc.loadtest.utils.SystemProps
+import bbc.loadtest.utils.BaseUrls
 
-class LdpSport extends Simulation with SystemProps {
+class LdpSport extends Simulation with BaseUrls {
 
   val palUrls = csv("sport/pal-client.txt").random 
   val sportDataUrls = csv("sport/sport-data.txt").random
 
   val httpProtocol = http
-    .baseURL(s"http://data$env.bbc.co.uk")
+    .baseURL(env)
     .acceptHeader("application/json-ld")
     .disableCaching
 
-  val palClient = http("Pal Client").get("${palUrl}")
-    .check(status.in(200, 201, 404))
-  val cpsNavBuilder = http("Nav Builder").get("/sport-linked-data/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG")
-    .check(status.in(200, 201, 404))
-  val sportData = http("Sports Data").get("${sportDataUrl}").header("Accept", "application/xml")
-    .check(status.in(200, 201, 404))
-
   val ldpSport = scenario("ldpSport")
     .feed(palUrls)
-    .exec(palClient)
-    .pause(1)
-    .exec(cpsNavBuilder)
-    .pause(1)
-    .feed(sportDataUrls)
-    .exec(sportData)
-    .pause(1)
+    .exec(http("Pal Client")
+    .get("${palUrl}")
+    .check(status.in(200, 201, 404)))
+
+    .exec(http("CPS Nav Builder")
+    .get("/sport-linked-data/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG")
+    .check(status.in(200, 201, 404)))
+    
+    .exec(http("Sports Data") 
+    .get("${sportDataUrl}")
+    .header("Accept", "application/xml")
+    .check(status.in(200, 201, 404)))
 
   setUp(ldpSport.inject(
-    rampUsersPerSec(1) to 100 during(5 seconds),    
-    constantUsersPerSec(100) during(10 minutes),   
-    rampUsersPerSec(100) to 1000 during(20 minutes), 
-    constantUsersPerSec(1000) during(30 minutes) 
+    constantUsersPerSec(10) during(5 minutes)
   ).protocols(httpProtocol))
 }
