@@ -25,6 +25,7 @@ class LdpSport extends Simulation with BaseUrls {
     .get("/sport-linked-data/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG")
     .check(status.in(200, 201, 404)))
     
+    .feed(sportDataUrls)
     .exec(http("Sports Data") 
     .get("${sportDataUrl}")
     .header("Accept", "application/xml")
