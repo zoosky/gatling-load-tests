@@ -3,7 +3,7 @@ package bbc.loadtest.sport
 import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import bbc.loadtest.utils.BaseUrls._
+import bbc.loadtest.utils._
 
 class LdpSport extends Simulation {
 
@@ -11,7 +11,7 @@ class LdpSport extends Simulation {
   val sportDataUrls = csv("sport/sport-data.txt").random
 
   val httpProtocol = http
-    .baseURL(url("data"))
+    .baseURL(BaseUrls.url("data"))
     .acceptHeader("application/json-ld")
     .disableCaching
 
