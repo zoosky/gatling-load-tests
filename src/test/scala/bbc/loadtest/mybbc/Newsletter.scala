@@ -31,7 +31,8 @@ class Newsletter extends Simulation {
     .formParam("unique", "adrian@loadtest1.com") 
     .formParam("password", "loadtest")
     .formParam("bbcid_submit_button", "Sign in")
-    .check(substring("Please confirm your age"))
+    .check(status.is(200),
+      substring("Please confirm your age"))
 
   val subscribe = http("subscribe")
     .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
@@ -41,7 +42,8 @@ class Newsletter extends Simulation {
     .formParam("tandc_06", "true")
     .formParam("email", "adrian@loadtest1.com")
     .formParam("u13-confirmation", "0")
-    .check(substring("Check your inbox to confirm your email"))
+    .check(status.is(200),
+      substring("Check your inbox to confirm your email"))
 
   val registerGet = http("registerGet") 
     .get("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
@@ -54,7 +56,8 @@ class Newsletter extends Simulation {
     .formParam("confirmpassword", "loadtest")
     .formParam("confirmpassword_confirm", "loadtest")
     .formParam("bbcid_submit_button", "Register")
-    .check(substring("registration is complete"))
+    .check(status.is(200),
+      substring("registration is complete"))
 
   // journey b
   val signInSubscribe = scenario("signInSubscribe")
