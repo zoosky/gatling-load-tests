@@ -25,14 +25,14 @@ class Newsletter extends Simulation {
     .check(status.is(200)))
 
     .exec(http("Sign In Post")
-		.post("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+    .post("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
     .formParam("unique", "adrian@loadtest1.com") 
     .formParam("password", "loadtest")
     .formParam("bbcid_submit_button", "Sign in")
     .check(substring("Please confirm your age")))
 
     .exec(http("Subscribe")
-		.post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
+    .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
     .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
     .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
     .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
