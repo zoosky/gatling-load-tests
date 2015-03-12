@@ -5,6 +5,8 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
+import scala.util.Random
+
 class Newsletter extends Simulation {
 
   val httpProtocol = http
@@ -17,7 +19,8 @@ class Newsletter extends Simulation {
 
   val newsletterPage = http("newsletterPage")
     .get("/newsletters/thenolanshow")
-    .check(status.is(200))
+    .check(status.is(200),
+      substring("To subscribe you need to be 13 or over and have a BBC iD"))
 
   val signInGet = http("signInGet") 
     .get("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
@@ -40,13 +43,40 @@ class Newsletter extends Simulation {
     .formParam("u13-confirmation", "0")
     .check(substring("Check your inbox to confirm your email"))
 
+  val registerGet = http("registerGet") 
+    .get("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+    .check(status.is(200),
+      substring("Register"))
+
+  val registerPost = http("registerPost") 
+    .post("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+    .formParam("email", session => s"random@${new Random().nextInt(Int.MaxValue)}.com")
+    .formParam("confirmpassword", "loadtest")
+    .formParam("confirmpassword_confirm", "loadtest")
+    .formParam("bbcid_submit_button", "Register")
+    .check(substring("registration is complete"))
+
+  // journey b
   val signInSubscribe = scenario("signInSubscribe")
     .exec(newsletterPage)
     .exec(signInGet)
     .exec(signInPost)
     .exec(subscribe)
-    
-  setUp(signInSubscribe.inject(
-    atOnceUsers(2)
-  ).protocols(httpProtocol))
+
+  // journey c 
+  val registerSubscribe = scenario("registerSubscribe")
+    .exec(newsletterPage)
+    .exec(registerGet)
+    .exec(registerPost)
+    .exec(subscribe)
+
+  // journey d
+  val nonSignedVisitNewsletter = scenario("nonSignedVisitNewsletter")  
+    .exec(newsletterPage)
+
+  setUp(
+    signInSubscribe.inject(atOnceUsers(2)).protocols(httpProtocol),
+    nonSignedVisitNewsletter.inject(atOnceUsers(2)).protocols(httpProtocol),
+    registerSubscribe.inject(atOnceUsers(2)).protocols(httpProtocol)
+  )
 }
