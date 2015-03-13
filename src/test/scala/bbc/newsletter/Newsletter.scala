@@ -30,7 +30,7 @@ class Newsletter extends Simulation {
         .formParam("tandc_06", "true")
         .formParam("email", "adrian@loadtest1.com")
         .formParam("u13-confirmation", "0")
-        .check(substring("Check your inbox to confirm your email")))
+          .check(substring("Check your inbox to confirm your email")))
 
   // journey B
   val signInSubscribe = scenario("signInSubscribe")
@@ -45,7 +45,7 @@ class Newsletter extends Simulation {
         .formParam("unique", "loadtest@loadtest.com") 
         .formParam("password", "loadtest")
         .formParam("bbcid_submit_button", "Sign in")
-        .check(substring("Please confirm your age")))
+          .check(substring("Please confirm your age")))
 
     .exec(http("signInSubscribe")
       .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
@@ -55,24 +55,25 @@ class Newsletter extends Simulation {
         .formParam("tandc_06", "true")
         .formParam("email", "loadtest@loadtest.com")
         .formParam("u13-confirmation", "0")
-        .check(substring("Check your inbox to confirm your email")))
+          .check(substring("Check your inbox to confirm your email")))
 
   // Journey C
   val registerSubscribe = scenario("registerSubscribe")
     .exec(http("newsLetterPage")
-      .get("/newsletters/thenolanshow"))
-    
-    .exec(http("registerGet") 
-      .get("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-        .check(substring("Register")))
+      .get("/newsletters/thenolanshow")
+        .check(substring("To subscribe you need to be 13 or over")))
 
+    .exec(http("registerGet") 
+      .get("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+        .check(substring("Register")))
+    
     .exec(http("registerPost") 
-      .post("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+      .post("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
         .formParam("email", session => s"random@${new Random().nextInt(Int.MaxValue)}.com")
         .formParam("confirmpassword", "loadtest")
         .formParam("confirmpassword_confirm", "loadtest")
         .formParam("bbcid_submit_button", "Register")
-        .check(substring("registration is complete")))
+          .check(substring("registration is complete")))
     
     .exec(http("registerSubscribe")
       .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
@@ -82,17 +83,18 @@ class Newsletter extends Simulation {
         .formParam("tandc_06", "true")
         .formParam("email", "loadtest@loadtest.com")
         .formParam("u13-confirmation", "0")
-        .check(substring("Check your inbox to confirm your email")))
+          .check(substring("Check your inbox to confirm your email")))
 
     //journey D
     val nonSignInUserVisitsPage = scenario("nonSignInUserVisitsPage")
       .exec(http("newsLetterPage")
-        .get("/newsletters/thenolanshow"))
+        .get("/newsletters/thenolanshow")
+          .check(substring("To subscribe you need to be 13 or over")))
 
   setUp(
-    signedInUserSubscribe.inject(atOnceUsers(2)),
-    signInSubscribe.inject(atOnceUsers(2)),
-    registerSubscribe.inject(atOnceUsers(2)),
-    nonSignInUserVisitsPage.inject(atOnceUsers(2))
+    signedInUserSubscribe.inject(atOnceUsers(1)),
+    signInSubscribe.inject(atOnceUsers(1)),
+    registerSubscribe.inject(atOnceUsers(1)),
+    nonSignInUserVisitsPage.inject(atOnceUsers(1))
   ).protocols(httpProtocol)
 }
