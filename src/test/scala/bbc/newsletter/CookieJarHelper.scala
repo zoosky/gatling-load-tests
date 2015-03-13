@@ -1,4 +1,4 @@
-package bbc.thenolanshow
+package bbc.newsletter
 
 import java.io._
 

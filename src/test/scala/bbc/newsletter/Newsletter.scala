@@ -1,11 +1,11 @@
-package bbc.thenolanshow
+package bbc.newsletter
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
 import scala.util.Random
 
-class Step2RunSignedUsers extends Simulation {
+class NewsLetter extends Simulation {
 
   val httpProtocol = http
     .baseURL("https://ssl.stage.bbc.co.uk")
@@ -64,7 +64,7 @@ class Step2RunSignedUsers extends Simulation {
     
     .exec(http("registerGet") 
       .get("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-      .check(substring("Register")))
+        .check(substring("Register")))
 
     .exec(http("registerPost") 
       .post("https://ssl.stage.bbc.co.uk/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
@@ -73,11 +73,26 @@ class Step2RunSignedUsers extends Simulation {
         .formParam("confirmpassword_confirm", "loadtest")
         .formParam("bbcid_submit_button", "Register")
         .check(substring("registration is complete")))
+    
+    .exec(http("registerSubscribe")
+      .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
+        .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
+        .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
+        .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
+        .formParam("tandc_06", "true")
+        .formParam("email", "loadtest@loadtest.com")
+        .formParam("u13-confirmation", "0")
+        .check(substring("Check your inbox to confirm your email")))
+
+    //journey D
+    val nonSignInUserVisitsPage = scenario("nonSignInUserVisitsPage")
+      .exec(http("newsLetterPage")
+        .get("/newsletters/thenolanshow"))
 
   setUp(
-    signedInUserSubscribe.inject(atOnceUsers(1)),
-    signInSubscribe.inject(atOnceUsers(1)),
-    registerSubscribe.inject(atOnceUsers(1))
-  
+    signedInUserSubscribe.inject(atOnceUsers(2)),
+    signInSubscribe.inject(atOnceUsers(2)),
+    registerSubscribe.inject(atOnceUsers(2)),
+    nonSignInUserVisitsPage.inject(atOnceUsers(2))
   ).protocols(httpProtocol)
 }
