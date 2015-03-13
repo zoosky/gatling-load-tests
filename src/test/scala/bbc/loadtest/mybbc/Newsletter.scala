@@ -28,7 +28,7 @@ class Newsletter extends Simulation {
 
   val signInPost = http("signInPost") 
     .post("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-    .formParam("unique", "adrian@loadtest1.com") 
+    .formParam("unique", "loadtest@loadtest.com") 
     .formParam("password", "loadtest")
     .formParam("bbcid_submit_button", "Sign in")
     .check(status.is(200),
@@ -40,7 +40,7 @@ class Newsletter extends Simulation {
     .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
     .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
     .formParam("tandc_06", "true")
-    .formParam("email", "adrian@loadtest1.com")
+    .formParam("email", "loadtest@loadtest.com")
     .formParam("u13-confirmation", "0")
     .check(status.is(200),
       substring("Check your inbox to confirm your email"))
@@ -58,6 +58,17 @@ class Newsletter extends Simulation {
     .formParam("bbcid_submit_button", "Register")
     .check(status.is(200),
       substring("registration is complete"))
+
+  val signedInNewsletter = http("signedInNewsLetter")
+    .get("/newsletters/thenolanshow")
+    .header("Cookie", "BGUID=c534ac97f61c5a827510efb8b13ed0766007ade0a6a8db85f9190b7a2859d3a0;IDENTITY=400512290447077902%7C%7E3d1e08b1eb18f48bf63dd5b7d371fdfcc693d716%7C%7C1426240143787%7C0%7C250177967139df36e35be5d2360ddf745b0c4541f640%3A1; IDENTITY-HTTPS=32a1f1cb5550c370d784b580ba2ef00136c55c86; IDENTITY_ENV=stage;")
+    .check(status.is(200),
+      substring("Please confirm your age"))
+    
+  // journey a
+  val signedInSubscribe = scenario("signedInSubscribe")
+    .exec(signedInNewsletter)
+    .exec(subscribe)
 
   // journey b
   val signInSubscribe = scenario("signInSubscribe")
@@ -80,6 +91,7 @@ class Newsletter extends Simulation {
   setUp(
     signInSubscribe.inject(atOnceUsers(2)).protocols(httpProtocol),
     nonSignedVisitNewsletter.inject(atOnceUsers(2)).protocols(httpProtocol),
-    registerSubscribe.inject(atOnceUsers(2)).protocols(httpProtocol)
+    registerSubscribe.inject(atOnceUsers(2)).protocols(httpProtocol),
+    signedInSubscribe.inject(atOnceUsers(2)).protocols(httpProtocol)
   )
 }
