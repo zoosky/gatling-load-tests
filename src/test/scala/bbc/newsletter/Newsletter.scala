@@ -5,7 +5,7 @@ import io.gatling.http.Predef._
 
 import scala.util.Random
 
-class NewsLetter extends Simulation {
+class Newsletter extends Simulation {
 
   val httpProtocol = http
     .baseURL("https://ssl.stage.bbc.co.uk")
