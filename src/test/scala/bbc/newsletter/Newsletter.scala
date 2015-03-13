@@ -35,7 +35,8 @@ class Newsletter extends Simulation {
   // journey B
   val signInSubscribe = scenario("signInSubscribe")
     .exec(http("newsLetterPage")
-      .get("/newsletters/thenolanshow"))
+      .get("/newsletters/thenolanshow")
+        .check(substring("To subscribe you need to be 13 or over")))
     
     .exec(http("signInGet") 
       .get("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow"))
