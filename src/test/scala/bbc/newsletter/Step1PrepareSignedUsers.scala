@@ -3,6 +3,7 @@ package bbc.newsletter
 import java.io._
 import java.util.concurrent.ConcurrentLinkedQueue
 import scala.collection.JavaConversions._
+import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.cookie._
@@ -19,6 +20,9 @@ class Step1PrepareSignedUsers extends Simulation {
 
   val cookieJars = new ConcurrentLinkedQueue[CookieJar]
 
+  import java.util.concurrent.atomic._
+  val value = new AtomicInteger(1)
+
   val prepareSignedUsers = scenario("prepareSignedUsers")
     
     .exec(http("landingPage").get("/newsletters/thenolanshow"))
@@ -26,11 +30,11 @@ class Step1PrepareSignedUsers extends Simulation {
     .exec(http("signIn").get("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow"))
     
     .exec(http("signInPost").post("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-      .formParam("unique", "adrian@loadtest1.com")
+      .formParam("unique", session => s"adrian@loadtest${value.getAndIncrement}.com")
       .formParam("password", "loadtest")
       .formParam("rememberme", "1")
-      .formParam("bbcid_submit_button", "Sign in"))
-
+      .formParam("bbcid_submit_button", "Sign in")
+        .check(substring("Please confirm your age")))
     // drop non persistent cookies
     .exec(flushSessionCookies)
 
@@ -40,7 +44,10 @@ class Step1PrepareSignedUsers extends Simulation {
       session
     }
 
-  setUp(prepareSignedUsers.inject(atOnceUsers(1))).protocols(httpProtocol)
+  setUp(prepareSignedUsers.inject(
+    rampUsersPerSec(10) to(20) during(5 minutes),
+    constantUsersPerSec(20) during(5 minutes)
+  ).protocols(httpProtocol))
 
   after {
     CookieJarHelper.dumpCookieJarFeeder(cookieJars)
