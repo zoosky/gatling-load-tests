@@ -4,6 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
 import scala.util.Random
+import java.util.concurrent.atomic._
 
 class Newsletter extends Simulation {
 
@@ -15,6 +16,9 @@ class Newsletter extends Simulation {
     .acceptEncodingHeader("gzip, deflate, sdch")
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36")
 
+
+     
+  val value = new AtomicInteger(1)
   // journey A
   val signedInUserSubscribe = scenario("signedInUserSubscribe")
     // populate cookieJar
@@ -28,7 +32,7 @@ class Newsletter extends Simulation {
         .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
         .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
         .formParam("tandc_06", "true")
-        .formParam("email", "adrian@loadtest1.com")
+        .formParam("email", session => s"adrian@loadtest${value.getAndIncrement}.com")
         .formParam("u13-confirmation", "0")
           .check(substring("Check your inbox to confirm your email")))
 
@@ -58,8 +62,10 @@ class Newsletter extends Simulation {
         .formParam("u13-confirmation", "0")
           .check(substring("Check your inbox to confirm your email")))
 
+
   // Journey C
   val registerSubscribe = scenario("registerSubscribe")
+  .exec(_.set("randomDomain", s"random@${new Random().nextInt(Int.MaxValue)}.com"))
     .exec(http("newsLetterPage")
       .get("/newsletters/thenolanshow")
         .check(substring("To subscribe you need to be 13 or over")))
@@ -70,7 +76,7 @@ class Newsletter extends Simulation {
     
     .exec(http("registerPost") 
       .post("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-        .formParam("email", session => s"random@${new Random().nextInt(Int.MaxValue)}.com")
+        .formParam("email", "${randomDomain}")
         .formParam("confirmpassword", "loadtest")
         .formParam("confirmpassword_confirm", "loadtest")
         .formParam("bbcid_submit_button", "Register")
@@ -82,7 +88,7 @@ class Newsletter extends Simulation {
         .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
         .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
         .formParam("tandc_06", "true")
-        .formParam("email", "loadtest@loadtest.com")
+        .formParam("email", "${randomDomain}")
         .formParam("u13-confirmation", "0")
           .check(substring("Check your inbox to confirm your email")))
 
