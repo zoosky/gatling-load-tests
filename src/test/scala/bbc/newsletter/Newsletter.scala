@@ -16,8 +16,6 @@ class Newsletter extends Simulation {
     .acceptEncodingHeader("gzip, deflate, sdch")
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36")
 
-
-     
   val value = new AtomicInteger(1)
   // journey A
   val signedInUserSubscribe = scenario("signedInUserSubscribe")
@@ -61,7 +59,6 @@ class Newsletter extends Simulation {
         .formParam("email", "loadtest@loadtest.com")
         .formParam("u13-confirmation", "0")
           .check(substring("Check your inbox to confirm your email")))
-
 
   // Journey C
   val registerSubscribe = scenario("registerSubscribe")
