@@ -7,6 +7,47 @@ import scala.concurrent.duration._
 import scala.util.Random
 import java.util.concurrent.atomic._
 
+object Newsletter {
+
+  def subscribe(requestName: String, email: String) = {
+    http("signedInSubscribe")
+      .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
+        .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
+        .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
+        .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
+        .formParam("tandc_06", "true")
+        .formParam("email", email)
+        .formParam("u13-confirmation", "0")
+        .formParam("tandc_06", "TRUE")
+      .check(substring("Check your inbox to confirm your email"))
+  }
+
+  def signInPost(requestName: String, email: String) = {
+    http(requestName) 
+      .post("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+        .formParam("unique", email) 
+        .formParam("password", "loadtest")
+        .formParam("bbcid_submit_button", "Sign in")
+      .check(substring("Please confirm your age"))
+  }
+
+  def registerPost(email: String) = {
+    http("registerPost") 
+      .post("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
+        .formParam("email", email)
+        .formParam("confirmpassword", "loadtest")
+        .formParam("confirmpassword_confirm", "loadtest")
+        .formParam("bbcid_submit_button", "Register")
+      .check(substring("registration is complete"))
+  }
+
+  val newsletterPage = http("newsLetterPage")
+    .get("/newsletters/thenolanshow")
+    .check(substring("To subscribe you need to be 13 or over"))
+} 
+
+import Newsletter._
+
 class Newsletter extends Simulation {
 
   val httpProtocol = http
@@ -18,6 +59,8 @@ class Newsletter extends Simulation {
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36")
 
   val value = new AtomicInteger(1)
+  val random = new Random()
+
   // journey A
   val signedInUserSubscribe = scenario("signedInUserSubscribe")
     // populate cookieJar
@@ -25,76 +68,38 @@ class Newsletter extends Simulation {
     
     .exec(http("jumpToAgeConfirm").get("/newsletters/thenolanshow").check(substring("Please confirm your age")))
   
-    .exec(http("signedInSubscribe")
-      .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
-        .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
-        .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
-        .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
-        .formParam("tandc_06", "true")
-        .formParam("email", session => s"adrian@loadtest${value.getAndIncrement}.com")
-        .formParam("u13-confirmation", "0")
-      .check(substring("Check your inbox to confirm your email")))
+    .exec(_.set("newEmail", s"adrian@loadtest${value.getAndIncrement}.com"))
+
+    .exec(subscribe("signedInSubscribe", "${newEmail}"))
 
   // journey B
   val signInSubscribe = scenario("signInSubscribe")
-    .exec(http("newsLetterPage")
-      .get("/newsletters/thenolanshow")
-      .check(substring("To subscribe you need to be 13 or over")))
+    .exec(newsletterPage)
     
     .exec(http("signInGet") 
       .get("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow"))
 
-    .exec(http("signInPost") 
-      .post("/id/signin?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-        .formParam("unique", "loadtest@loadtest.com") 
-        .formParam("password", "loadtest")
-        .formParam("bbcid_submit_button", "Sign in")
-      .check(substring("Please confirm your age")))
-
-    .exec(http("signInSubscribe")
-      .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
-        .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
-        .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
-        .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
-        .formParam("tandc_06", "true")
-        .formParam("email", "loadtest@loadtest.com")
-        .formParam("u13-confirmation", "0")
-      .check(substring("Check your inbox to confirm your email")))
+    .exec(signInPost("signInPost", "loadtest@loadtest.com"))
+      
+    .exec(subscribe("signInSubscribe", "loadtest@loadtest.com"))
 
   // Journey C
   val registerSubscribe = scenario("registerSubscribe")
-  .exec(_.set("randomDomain", s"random@${new Random().nextInt(Int.MaxValue)}.com"))
-    .exec(http("newsLetterPage")
-      .get("/newsletters/thenolanshow")
-      .check(substring("To subscribe you need to be 13 or over")))
+    .exec(_.set("randomDomain", s"random@${new Random().nextInt(Int.MaxValue)}.com"))
+
+    .exec(newsletterPage)
 
     .exec(http("registerGet") 
       .get("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
       .check(substring("Register")))
     
-    .exec(http("registerPost") 
-      .post("/id/register?ptrt=https%3A%2F%2Fssl.stage.bbc.co.uk%2Fnewsletters%2Fthenolanshow")
-        .formParam("email", "${randomDomain}")
-        .formParam("confirmpassword", "loadtest")
-        .formParam("confirmpassword_confirm", "loadtest")
-        .formParam("bbcid_submit_button", "Register")
-      .check(substring("registration is complete")))
-    
-    .exec(http("registerSubscribe")
-      .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
-        .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
-        .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
-        .formParam("INXMAIL_SUBSCRIPTION", "the nolan show")
-        .formParam("tandc_06", "true")
-        .formParam("email", "${randomDomain}")
-        .formParam("u13-confirmation", "0")
-      .check(substring("Check your inbox to confirm your email")))
+    .exec(registerPost("${randomDomain}"))
+
+    .exec(subscribe("registerSubscribe", "${randomDomain}"))
 
     //journey D
-    val nonSignInUserVisitsPage = scenario("nonSignInUserVisitsPage")
-      .exec(http("newsLetterPage")
-        .get("/newsletters/thenolanshow")
-        .check(substring("To subscribe you need to be 13 or over")))
+  val nonSignInUserVisitsPage = scenario("nonSignInUserVisitsPage")
+    .exec(newsletterPage)
 
   setUp(
     signedInUserSubscribe.inject(
