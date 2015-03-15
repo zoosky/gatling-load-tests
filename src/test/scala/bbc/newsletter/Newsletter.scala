@@ -10,7 +10,7 @@ import java.util.concurrent.atomic._
 object Newsletter {
 
   def subscribe(requestName: String, email: String) = {
-    http("signedInSubscribe")
+    http(requestName)
       .post("https://bbcsignups.external.bbc.co.uk/inxmail4/subscription/servlet")
         .formParam("INXMAIL_HTTP_REDIRECT", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/subscribe?ptrt=http://www.stage.bbc.co.uk")
         .formParam("INXMAIL_HTTP_REDIRECT_ERROR", "http://www.stage.bbc.co.uk/newsletters/thenolanshow/error?ptrt=http://www.stage.bbc.co.uk")
