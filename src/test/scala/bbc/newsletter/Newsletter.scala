@@ -3,6 +3,7 @@ package bbc.newsletter
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
+import scala.concurrent.duration._    
 import scala.util.Random
 import java.util.concurrent.atomic._
 
@@ -96,9 +97,21 @@ class Newsletter extends Simulation {
         .check(substring("To subscribe you need to be 13 or over")))
 
   setUp(
-    signedInUserSubscribe.inject(atOnceUsers(1)),
-    signInSubscribe.inject(atOnceUsers(1)),
-    registerSubscribe.inject(atOnceUsers(1)),
-    nonSignInUserVisitsPage.inject(atOnceUsers(1))
+    signedInUserSubscribe.inject(
+      rampUsersPerSec(1) to(50) during(5 minutes),
+      constantUsersPerSec(50) during(15 minutes)
+    ),
+    signInSubscribe.inject(
+      rampUsersPerSec(1) to(13) during(5 minutes),
+      constantUsersPerSec(13) during(15 minutes)
+    ),
+    registerSubscribe.inject(
+      rampUsersPerSec(1) to(12) during(5 minutes),
+      constantUsersPerSec(12) during(15 minutes)
+    ),
+    nonSignInUserVisitsPage.inject(
+      rampUsersPerSec(1) to(25) during(5 minutes),
+      constantUsersPerSec(25) during(15 minutes)
+    )
   ).protocols(httpProtocol)
 }
