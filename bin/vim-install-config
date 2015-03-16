@@ -17,5 +17,4 @@ syntax on
 filetype plugin indent on
 set shortmess+=I
 set wildignore+=*/target/*
-colorscheme ir_black
 EOF
