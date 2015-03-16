@@ -20,5 +20,4 @@ git config --global color.ui true
 echo "GNU Screen"
 sudo yum install -y screen
 
-echo "REBOOT NOWSKI!"
-exit 0
+echo "EXIT SHELL!"
