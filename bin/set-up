@@ -20,4 +20,7 @@ git config --global color.ui true
 echo "GNU Screen"
 sudo yum install -y screen
 
+echo "gpg options"
+gpg-agent --use-standard-socket --write-env-file --enable-ssh-support --daemon
+
 echo "EXIT SHELL!"
