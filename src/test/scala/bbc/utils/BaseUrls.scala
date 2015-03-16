@@ -1,4 +1,4 @@
-package bbc.loadtest.utils
+package bbc.utils
 
 object BaseUrls {
   private val prop = Option(System.getProperty("env")).getOrElse("a valid environment has not been entered")
