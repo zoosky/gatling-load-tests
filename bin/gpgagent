@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "gpg options"
+gpg-agent --use-standard-socket --write-env-file --enable-ssh-support --daemon
