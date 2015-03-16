@@ -10,10 +10,6 @@ git clone https://github.com/derekwyatt/vim-scala
 git clone https://github.com/kien/ctrlp.vim
 git clone https://github.com/tpope/vim-commentary
 
-echo "vim colour scheme"
-mkdir ~/.vim/colors
-wget http://blog.toddwerth.com/entry_files/8/ir_black.vim -P ~/.vim/colors 
-
 echo "Configure Vim"
 cat << EOF > ~/.vimrc
 execute pathogen#infect()
