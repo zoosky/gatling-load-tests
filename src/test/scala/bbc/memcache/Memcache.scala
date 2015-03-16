@@ -1,4 +1,4 @@
-package bbc.loadtest.memcache
+package bbc.memcache
 
 import scala.concurrent.duration._
 

@@ -1,4 +1,4 @@
-package bbc.loadtest.mediaselector
+package bbc.mediaselector
 
 import scala.concurrent.duration._
 

@@ -1,4 +1,4 @@
-package bbc.loadtest.homepage
+package bbc.homepage
 
 import scala.concurrent.duration._
 

@@ -1,4 +1,4 @@
-package bbc.loadtest.locator
+package bbc.locator
 
 import scala.concurrent.duration._
 

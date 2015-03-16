@@ -1,4 +1,4 @@
-package bbc.loadtest.travel
+package bbc.travel
 
 import scala.concurrent.duration._
 

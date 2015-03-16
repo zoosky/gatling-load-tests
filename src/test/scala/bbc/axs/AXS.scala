@@ -1,4 +1,4 @@
-package bbc.loadtest.axs
+package bbc.axs
 
 import scala.concurrent.duration._
 

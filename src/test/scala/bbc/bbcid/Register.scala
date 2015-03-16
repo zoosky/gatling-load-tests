@@ -1,4 +1,4 @@
-package bbc.loadtest.bbcid
+package bbc.bbcid
 
 import scala.concurrent.duration._
 import scala.util.Random

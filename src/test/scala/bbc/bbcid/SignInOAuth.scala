@@ -1,4 +1,4 @@
-package bbc.loadtest.bbcid
+package bbc.bbcid
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._

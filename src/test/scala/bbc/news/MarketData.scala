@@ -1,4 +1,4 @@
-package bbc.loadtest.news 
+package bbc.news 
 import scala.concurrent.duration._
 
 import io.gatling.core.Predef._

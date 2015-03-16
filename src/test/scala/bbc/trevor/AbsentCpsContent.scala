@@ -1,4 +1,4 @@
-package bbc.loadtest.trevor
+package bbc.trevor
 
 import scala.concurrent.duration._
 

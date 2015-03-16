@@ -1,4 +1,4 @@
-package bbc.loadtest.searchsuggest
+package bbc.searchsuggest
 
 import scala.concurrent.duration._
 

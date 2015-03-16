@@ -1,4 +1,4 @@
-package bbc.loadtest.wwfeatures
+package bbc.wwfeatures
 
 import scala.concurrent.duration._
 

@@ -1,4 +1,4 @@
-package bbc.loadtest.weather
+package bbc.weather
 
 import scala.concurrent.duration._
 

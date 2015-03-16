@@ -1,4 +1,4 @@
-package bbc.loadtest.tupac
+package bbc.tupac
 
 import scala.concurrent.duration._
 

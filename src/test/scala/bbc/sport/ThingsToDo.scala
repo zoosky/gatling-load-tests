@@ -1,4 +1,4 @@
-package bbc.loadtest.sport
+package bbc.sport
 
 import scala.concurrent.duration._
 
