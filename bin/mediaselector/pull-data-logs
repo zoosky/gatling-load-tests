@@ -16,4 +16,5 @@ echo secureUrl > $GATLING_PATH/secure.csv
 cat $OPEN_LOG >> $GATLING_PATH/open.csv
 cat $SECURE_LOG >> $GATLING_PATH/secure.csv
 
-exit 0
+rm $OPEN_LOG $SECURE_LOG
+

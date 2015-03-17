@@ -7,6 +7,11 @@ import io.gatling.http.Predef._
 
 class MediaSelector extends Simulation {
 
+  before {
+    import sys.process._
+    "sh bin/mediaselector/pull-data-logs" !
+  } 
+
   val httpProtocol = http
     .header("X-IP-Address", "")
 
