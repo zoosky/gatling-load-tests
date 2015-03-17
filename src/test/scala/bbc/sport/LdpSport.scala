@@ -36,5 +36,5 @@ class LdpSport extends Simulation {
     constantUsersPerSec(100) during(30 minutes),
     rampUsersPerSec(100) to 250 during(5 minutes),
     constantUsersPerSec(250) during(60 minutes)
-    ).protocols(httpProtocol))
+  ).protocols(httpProtocol))
 }
