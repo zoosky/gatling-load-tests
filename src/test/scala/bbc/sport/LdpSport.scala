@@ -20,7 +20,7 @@ class LdpSport extends Simulation {
     .exec(http("Pal Client")
     .get("${palUrl}")
     .check(status.in(200, 201, 404)))
-
+/*
     .exec(http("CPS Nav Builder")
     .get("/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG")
     .check(status.in(200, 201, 404)))
@@ -30,11 +30,11 @@ class LdpSport extends Simulation {
     .get("${sportDataUrl}")
     .header("Accept", "application/xml")
     .check(status.in(200, 201, 404)))
-
+*/
   setUp(ldpSport.inject(
-    rampUsersPerSec(11) to 33 during(10 seconds),
-    constantUsersPerSec(33) during(10 minutes),
-    rampUsersPerSec(33) to 333 during(20 minutes),
-    constantUsersPerSec(333) during(30 minutes)
+    rampUsersPerSec(10) to 100 during(10 seconds),
+    constantUsersPerSec(100) during(30 minutes),
+    rampUsersPerSec(100) to 250 during(5 minutes),
+    constantUsersPerSec(250) during(60 minutes)
   ).protocols(httpProtocol))
 }
