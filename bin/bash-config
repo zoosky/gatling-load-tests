@@ -3,11 +3,10 @@
 echo "Some Bash"
 cat << EOF > ~/.bashrc
 export PS1="\u@\h \w "
-export GATLING_HOME=~/gatling-load-tests
 alias ..="cd .."
 alias gt="cd ~/gatling-load-tests"
 alias cl='clear'
 alias vi='vim'
 alias pg="nc -l 2003 | awk -f bin/pg.awk"
-alias cf='cd $GATLING_HOME; gpg-agent --use-standard-socket --write-env-file --enable-ssh-support --daemon; gpg-zip -d bin/support.gpg; sudo sh support/conf-setup'
+alias cf="gt; gpg-agent --use-standard-socket --write-env-file --enable-ssh-support --daemon > /dev/null; gpg-zip -d bin/support.gpg; sudo sh support/conf-setup"
 EOF
