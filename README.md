@@ -31,5 +31,5 @@ $ sbt
 ```
 
 ## Real-time metrics
-David Blooman has created [InfluxDB and Grafana Docker containers](https://github.com/DaveBlooman/gatling-docker) to view and persist realtime data. 
+[Grafana Docker image] (https://registry.hub.docker.com/u/aidylewis/grafana) and the [InfluxDB image] (https://registry.hub.docker.com/u/davey/influxdb/).
 
