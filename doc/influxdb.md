@@ -22,7 +22,7 @@ Max values between two dates
 select value from gatling.ldpsport.allRequests.all.max where time > '2015-03-18' and time < '2015-03-20';
 ```
 
-Retrieve values greater the 1000 ms
+Retrieve all data where values are greater the 1000ms
 ```sql
 select * from gatling.ldpsport.allRequests.all.max where value > 1000;
 ```
