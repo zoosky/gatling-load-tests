@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "gpg options"
-gpg-agent --use-standard-socket --daemon
