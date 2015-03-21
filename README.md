@@ -31,5 +31,10 @@ $ sbt
 ```
 
 ## Real-time metrics
-[Grafana Docker image] (https://registry.hub.docker.com/u/aidylewis/grafana) and the [InfluxDB image] (https://registry.hub.docker.com/u/davey/influxdb/).
+```bash
+docker run -d -p 8081:8081 --name grafana aidylewis/grafana
+docker run -d \
+           -p 8083:8083 -p 8084:8084 -p 8086:8086 -p 2003:2003 \
+           -e PRE_CREATE_DB="gatling;grafana" --name influxdb davey/influxdb:latest
+```
 
