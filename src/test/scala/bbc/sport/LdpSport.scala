@@ -9,6 +9,7 @@ class LdpSport extends Simulation {
 
   val palUrls = csv("sport/pal-client.txt").random 
   val sportDataUrls = csv("sport/sport-data.txt").random
+  val apiValue = "mCJTtc2wG3WKklB7GMrkWi6Fn8bvTPPa" 
 
   val httpProtocol = http
     .baseURL(BaseUrls.url("data"))
@@ -18,11 +19,12 @@ class LdpSport extends Simulation {
   val ldpSport = scenario("ldpSport")
     .feed(palUrls)
     .exec(http("Pal Client")
-    .get("${palUrl}")
+    .get("${palUrl}" + apiValue)
     .check(status.in(200, 201, 404)))
+  
 /*
     .exec(http("CPS Nav Builder")
-    .get("/nav?api_key=aszYdyTIisgk9XEwAg9rlnSrjAlDhkWG")
+    .get("/nav?api_key=${apiValue}")
     .check(status.in(200, 201, 404)))
     
     .feed(sportDataUrls)
