@@ -32,9 +32,21 @@ class LdpSport extends Simulation {
     .check(status.in(200, 201, 404)))
 */
   setUp(ldpSport.inject(
-    rampUsersPerSec(10) to 100 during(10 seconds),
-    constantUsersPerSec(100) during(30 minutes),
-    rampUsersPerSec(100) to 250 during(5 minutes),
-    constantUsersPerSec(250) during(60 minutes)
+    rampUsersPerSec(10) to 200 during(5 minutes),
+    constantUsersPerSec(200) during(20 minutes),
+    rampUsersPerSec(200) to 200 during(2 minutes),
+    constantUsersPerSec(200) during(6 minutes),
+    rampUsersPerSec(200) to 300 during(2 minutes),
+    constantUsersPerSec(300) during(6 minutes),
+    rampUsersPerSec(300) to 400 during(2 minutes),
+    constantUsersPerSec(400) during(6 minutes),
+    rampUsersPerSec(400) to 500 during(2 minutes),
+    constantUsersPerSec(500) during(6 minutes),
+    rampUsersPerSec(500) to 600 during(2 minutes),
+    constantUsersPerSec(600) during(6 minutes),
+    rampUsersPerSec(600) to 700 during(2 minutes),
+    constantUsersPerSec(700) during(6 minutes),
+    rampUsersPerSec(700) to 800 during(2 minutes),
+    constantUsersPerSec(800) during(10 minutes)
   ).protocols(httpProtocol))
 }
