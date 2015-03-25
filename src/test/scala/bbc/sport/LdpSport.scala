@@ -10,6 +10,7 @@ class LdpSport extends Simulation {
   val palUrls = csv("sport/pal-client.txt").random 
   val apiKey = None
 
+  // SBT_OPTS="-Denv=test" sbt
   val httpProtocol = http
     .baseURL(BaseUrls.url("data"))
     .acceptHeader("application/json-ld")
