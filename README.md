@@ -52,3 +52,8 @@ docker run -d \
            -e PRE_CREATE_DB="gatling;grafana" --name influxdb davey/influxdb:latest
 ```
 
+## Gatling Jenkins 
+```bash 
+docker run -p 8080:8080 --name gatling-jenkins aidylewis/gatling-jenkins
+```
+
