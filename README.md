@@ -54,6 +54,6 @@ docker run -d \
 
 ## Gatling Jenkins 
 ```bash 
-docker run -p 8080:8080 --name gatling-jenkins aidylewis/gatling-jenkins
+docker run -d -p 8080:8080 --name gatling-jenkins aidylewis/gatling-jenkins
 ```
 
