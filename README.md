@@ -31,6 +31,20 @@ $ sbt
 ```
 
 ## Real-time metrics
+### gatling.conf
+```
+data {
+  writers = "console, file, graphite"
+}
+graphite {
+   host = "192.0.2.235" 
+   port = 2003
+   protocol = "tcp"
+   rootPathPrefix = "gatling"
+}
+```
+
+### Docker commands
 ```bash
 docker run -d -p 8081:8081 --name grafana aidylewis/grafana
 docker run -d \
