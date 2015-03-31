@@ -27,7 +27,7 @@ $ git clone git@github.com:BBC/gatling-load-tests.git; cd gatling-load-tests
 ## Execution
 ```bash
 $ sbt
-> testOnly *SampleTest
+> testOnly bbc.kraftwerk.ComputerWorld
 ```
 
 ## Real-time metrics
