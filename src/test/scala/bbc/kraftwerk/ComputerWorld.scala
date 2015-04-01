@@ -2,7 +2,7 @@ package bbc.kraftwerk
 
 import scala.concurrent.duration._
 
-import java.util.concurrent.atomic._
+import java.util.concurrent.ThreadLocalRandom
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -36,9 +36,8 @@ class ComputerWorld extends Simulation {
     .formParam("company", "") 
     .check(substring("${homeComputer}"))
   
-  val value = new AtomicInteger(1)
   val computerDatabaseScn = scenario("computerDatabaseScn") 
-    .exec(_.set("homeComputer", s"homeComputer${value.getAndIncrement}"))
+    .exec(_.set("homeComputer", s"homeComputer_${ThreadLocalRandom.current.nextInt(Int.MaxValue)}"))
     .exec(computers)
     .exec(addNewComputer)
     .exec(addNewComputerPost)
