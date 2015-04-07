@@ -43,6 +43,6 @@ class ComputerWorld extends Simulation {
     .exec(addNewComputerPost)
     
   setUp(computerDatabaseScn.inject(
-    constantUsersPerSec(1) during(10 seconds)
+    constantUsersPerSec(10) during(2 minutes)
   ).protocols(httpProtocol)) 
 }
