@@ -40,7 +40,6 @@ class NewsProviderSimulation extends Simulation {
         .check(regex("missingContent").notExists))
 
   val scn = scenario("NewsProviderSimulation")
-
     .exec(http("Default index")
     .get("/default.json?platform=html"))
 
