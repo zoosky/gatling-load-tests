@@ -27,14 +27,33 @@ $ git clone git@github.com:BBC/gatling-load-tests.git; cd gatling-load-tests
 ## Execution
 ```bash
 $ sbt
-> testOnly *SampleTest
+> testOnly bbc.kraftwerk.ComputerWorld
 ```
 
 ## Real-time metrics
+### gatling.conf
+```
+data {
+  writers = "console, file, graphite"
+}
+graphite {
+   host = "192.0.2.235" 
+   port = 2003
+   protocol = "tcp"
+   rootPathPrefix = "gatling"
+}
+```
+
+### Grafana/InfluxDB
 ```bash
 docker run -d -p 8081:8081 --name grafana aidylewis/grafana
 docker run -d \
            -p 8083:8083 -p 8084:8084 -p 8086:8086 -p 2003:2003 \
            -e PRE_CREATE_DB="gatling;grafana" --name influxdb davey/influxdb:latest
+```
+
+## Gatling Jenkins 
+```bash 
+docker run -d -p 8080:8080 --name gatling-jenkins aidylewis/gatling-jenkins
 ```
 
