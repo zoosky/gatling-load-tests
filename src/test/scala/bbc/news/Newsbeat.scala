@@ -45,7 +45,7 @@ class Newsbeat extends Simulation {
  
   setUp(scn.inject(
     rampUsersPerSec(1) to(25) during(2 minutes),
-    constantUsersPerSec(25) during(8 minutes) randomized,
+    constantUsersPerSec(25) during(8 minutes),
     rampUsersPerSec(25) to(50) during(2 minutes),
     constantUsersPerSec(50) during(8 minutes),
     rampUsersPerSec(50) to(125) during(2 minutes),
