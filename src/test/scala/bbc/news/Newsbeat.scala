@@ -35,12 +35,20 @@ class Newsbeat extends Simulation {
       .get("/newsbeat/topics/entertainment")
       .check(status.is(200)))
  
-      .exec(http("/newsbeat/story")
+      .exec(http("/newsbeat/article")
       .get("/newsbeat/article/32129276/pilot-shares-thank-you-letter-from-airline-passenger")
       .check(status.is(200)))
  
-      .exec(http("/newsbeat/story2")
-      .get("/newsbeat/article/32220611")
+      .exec(http("/newsbeat/article2")
+      .get("/newsbeat/article/32284686/labour-manifesto-whats-in-it-for-young-people-across-the-uk")
+      .check(status.is(200)))
+
+      .exec(http("/newsbeat/article3")
+      .get("/newsbeat/article/32288347/madonnas-drake-snog-and-the-memes")
+      .check(status.is(200)))
+ 
+      .exec(http("/newsbeat/article4")
+      .get("/newsbeat/article/32297013/olivia-munn-joins-x-men-apocalypse-cast-as-betsy-braddock")
       .check(status.is(200)))
  
   setUp(scn.inject(
@@ -50,7 +58,7 @@ class Newsbeat extends Simulation {
     constantUsersPerSec(50) during(8 minutes),
     rampUsersPerSec(50) to(125) during(2 minutes),
     constantUsersPerSec(125) during(8 minutes),
-    rampUsersPerSec(125) to(400) during(5 minutes),
-    constantUsersPerSec(400) during(15 minutes)
+    rampUsersPerSec(125) to(225) during(5 minutes),
+    constantUsersPerSec(225) during(15 minutes)
   ).protocols(httpProtocol))
 }
