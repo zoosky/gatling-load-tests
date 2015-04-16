@@ -1,7 +1,8 @@
 #!/bin/sh
 
-echo JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.45-28.b13.el6_6.x86_64 >> ~/.bashrc
+echo JAVA_HOME=$(readlink -f `which java`) >> ~/.bashrc
 wget https://jvmtop.googlecode.com/files/jvmtop-0.8.0.tar.gz
+tar -zxvf jvmtop-0.8.0.tar.gz
 
 
 
