@@ -9,7 +9,6 @@ class LiveBroker extends Simulation {
   
   val httpProtocol = http
     .baseURL("https://api.stage.bbc.co.uk")
-    .acceptHeader("application/json")
 
   val request = csv("nitro/requests.txt").circular  
   
